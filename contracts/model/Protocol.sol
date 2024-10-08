@@ -42,6 +42,8 @@ struct LoanListing {
     ListingStatus listingStatus;
 }
 
+
+
 enum Status {
     OPEN,
     SERVICED,

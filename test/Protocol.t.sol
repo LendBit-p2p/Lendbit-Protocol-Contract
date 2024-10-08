@@ -528,16 +528,94 @@ contract ProtocolTest is Test, IDiamondCut {
         IERC20(LINK_CONTRACT_ADDRESS).transfer(B, 500000000000);
         _depositCollateral(B, LINK_CONTRACT_ADDRESS, 500000000000);
 
-        protocolFacet.requestLoanFromListing(1, 5E10);
+        protocolFacet.requestLoanFromListing(1, 2E10);
 
         Request memory _request = protocolFacet.getRequest(1);
         LoanListing memory _listing = protocolFacet.getLoanListing(1);
 
-        assertEq(_request.amount, 5E10);
+        assertEq(_request.amount, 2E10);
         assertEq(_request.interest, _listing.interest);
         assertEq(_request.returnDate, _listing.returnDate + block.timestamp);
         assertEq(uint8(_request.status), uint8(Status.SERVICED));
-        assertEq(_listing.amount, 5E10);
+        assertEq(_listing.amount, 8E10);
+    }
+
+    function testFetchAllServicesRquest() external{
+            switchSigner(owner);
+
+        IERC20(DIA_CONTRACT_ADDRESS).approve(
+            address(protocolFacet),
+            type(uint256).max
+        );
+        uint256 _amount = 10E10;
+        uint16 _interestRate = 500;
+        uint256 _returnDate = 365 days;
+        uint256 _min_amount = 2E10;
+        uint256 _max_amount = 10E10;
+
+        protocolFacet.createLoanListing(
+            _amount,
+            _min_amount,
+            _max_amount,
+            _returnDate,
+            _interestRate,
+            DIA_CONTRACT_ADDRESS
+        );
+
+        LoanListing memory _listing = protocolFacet.getLoanListing(1);
+        assertEq(_listing.author, owner);
+
+        IERC20(LINK_CONTRACT_ADDRESS).transfer(B, 500000000000);
+
+        _depositCollateral(B, LINK_CONTRACT_ADDRESS, 500000000000);
+
+        protocolFacet.requestLoanFromListing(1, 2E10);
+        Request memory _request = protocolFacet.getRequest(1);
+
+        assertEq(uint8(_request.status), uint8(Status.SERVICED));
+
+        Request [] memory _data = protocolFacet.getUserBorrowRequests(B);
+        assertEq(_data.length, 1);
+     
+    }
+
+    function testGetTotalDept() external{
+
+            switchSigner(owner);
+
+        IERC20(DIA_CONTRACT_ADDRESS).approve(
+            address(protocolFacet),
+            type(uint256).max
+        );
+        uint256 _amount = 10E10;
+        uint16 _interestRate = 500;
+        uint256 _returnDate = 365 days;
+        uint256 _min_amount = 2E10;
+        uint256 _max_amount = 10E10;
+
+        protocolFacet.createLoanListing(
+            _amount,
+            _min_amount,
+            _max_amount,
+            _returnDate,
+            _interestRate,
+            DIA_CONTRACT_ADDRESS
+        );
+
+        LoanListing memory _listing = protocolFacet.getLoanListing(1);
+        assertEq(_listing.author, owner);
+
+        IERC20(LINK_CONTRACT_ADDRESS).transfer(B, 500000000000);
+
+        _depositCollateral(B, LINK_CONTRACT_ADDRESS, 500000000000);
+
+        protocolFacet.requestLoanFromListing(1, 2E10);
+        Request memory _request = protocolFacet.getRequest(1);
+
+        assertEq(uint8(_request.status), uint8(Status.SERVICED));
+           Request [] memory _data = protocolFacet.getUserBorrowRequests(B);
+        assertEq(_data[0].totalRepayment, protocolFacet.getUserTotalDebt(B));
+
     }
 
     function createLoanListing() public {

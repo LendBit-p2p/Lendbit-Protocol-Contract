@@ -59,8 +59,8 @@ contract ProtocolFacet {
         _isTokenAllowed(_tokenCollateralAddress)
     {
         _appStorage.s_addressToCollateralDeposited[msg.sender][
-            _tokenCollateralAddress
-        ] += _amountOfCollateral;
+                _tokenCollateralAddress
+            ] += _amountOfCollateral;
         emit CollateralDeposited(
             msg.sender,
             _tokenCollateralAddress,
@@ -612,9 +612,65 @@ contract ProtocolFacet {
         emit LoanRepayment(msg.sender, _orderId, _amount);
     }
 
+    function liquidateUser(address _user) external {
+        Request [] memory servicedRgetUserBorrowRequests(_user);
+        uint256 totalDebt = getUserTotalDebt(_user);
+        // check the all the request that the user has borrowered that has been serviced
+        // so when all the request is fetched that has been serviced it is to call get the addresse of the user that borrowed them and also the token they borrowed and amount with interest
+        // then it is to get the user total collateral and check convert it so the question is, is it to swap it to the collateral to usd and then because we have to swap the total
+        // collateral to the amount the person borrowed with the interest.
+        // so we are going to be using uniswap to be able to swap the total collateral to pay every one
+        // also we but this an edges case what if the total collateral is in different tokens so do we have to get all total collateral address from the total collateral mapping
+        // and be using it to swap so that why it will be ony native token and stables but if it is only native token and stables we have to get everything
+        // so i think there will be also calculation so what ever remain will be sent back to the user that was liquuidated and if nothing is remaing...
+        // an even will be emitted
+        // so we have to break to helper functions
+    }
+
     ///////////////////////
     /// VIEW FUNCTIONS ///
     //////////////////////
+
+
+    function getUserBorrowRequests(address _user) public view returns (Request[] memory) {
+        uint32 count = 0;
+        uint32 validIndex = 0;
+
+        for (uint96 index = 1; index <= _appStorage.requestId; index++) {
+            if (_appStorage.request[index].author == _user && 
+                _appStorage.request[index].status == Status.SERVICED) {
+                count++; 
+            }
+        }
+
+        Request[] memory _userRequest = new Request[](count);
+
+        for (uint96 index = 1; index <= _appStorage.requestId; index++) {
+            if (_appStorage.request[index].author == _user && 
+                _appStorage.request[index].status == Status.SERVICED) {
+                _userRequest[validIndex] = _appStorage.request[index];
+                validIndex++;  // Move to the next valid index
+            }
+        }
+
+        return _userRequest;
+    }
+
+
+    function getUserTotalDebt(address _user) external view returns(uint256){
+          uint256 count = 0;
+        for (uint96 index = 1; index <= _appStorage.requestId; index++) {
+            if (_appStorage.request[index].author == _user && 
+                _appStorage.request[index].status == Status.SERVICED) {
+                count += _appStorage.request[index].totalRepayment;
+            }
+            return count;
+    }
+    }
+
+
+
+
 
     /// @notice This gets the USD value of amount of the token passsed.
     /// @dev This uses chainlinks AggregatorV3Interface to get the price with the pricefeed address.
@@ -760,6 +816,9 @@ contract ProtocolFacet {
         }
     }
 
+  
+
+   
     /// @dev gets the amount of collateral auser has deposited
     /// @param _sender the user who has the collateral
     /// @param _tokenAddr the user who has the collateral
