@@ -62,3 +62,5 @@ event LoanListingCreated(
     address indexed tokenAddress,
     uint256 amount
 );
+
+event ListingClosed(address indexed sender, uint96 indexed _listingId);

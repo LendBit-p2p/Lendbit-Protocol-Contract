@@ -605,9 +605,32 @@ contract ProtocolTest is Test, IDiamondCut {
 
         assertEq(_request.amount, 5E10);
         assertEq(_request.interest, _listing.interest);
-        assertEq(_request.returnDate, _listing.returnDate + block.timestamp);
+        assertEq(_request.returnDate, _listing.returnDate);
         assertEq(uint8(_request.status), uint8(Status.SERVICED));
         assertEq(_listing.amount, 5E10);
+    }
+
+    function testCloseListingAds() public {
+        IERC20(LINK_CONTRACT_ADDRESS).balanceOf(owner);
+        createLoanListing();
+        IERC20(LINK_CONTRACT_ADDRESS).transfer(B, 500000000000);
+        _depositCollateral(B, LINK_CONTRACT_ADDRESS, 500000000000);
+
+        protocolFacet.requestLoanFromListing(1, 5E10);
+        switchSigner(owner);
+
+        uint256 _balanceBeforeClose = IERC20(DIA_CONTRACT_ADDRESS).balanceOf(
+            owner
+        );
+        protocolFacet.closeListingAds(1);
+        uint256 _balanceAfterClose = IERC20(DIA_CONTRACT_ADDRESS).balanceOf(
+            owner
+        );
+
+        LoanListing memory _listing = protocolFacet.getLoanListing(1);
+        assertEq(uint8(_listing.listingStatus), uint8(ListingStatus.CLOSED));
+        assertEq(_listing.amount, 0);
+        assertEq(_balanceAfterClose, _balanceBeforeClose + 5E10);
     }
 
     function createLoanListing() public {
@@ -620,7 +643,7 @@ contract ProtocolTest is Test, IDiamondCut {
             10E10,
             2E10,
             10E10,
-            365 days,
+            block.timestamp + 365 days,
             500,
             DIA_CONTRACT_ADDRESS
         );

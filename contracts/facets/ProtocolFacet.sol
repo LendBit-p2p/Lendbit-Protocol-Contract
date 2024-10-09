@@ -267,15 +267,16 @@ contract ProtocolFacet {
         // Check if remaining collateral still covers all loan obligations
         _revertIfHealthFactorIsBroken(msg.sender);
 
+        bool success;
         if (_tokenCollateralAddress == Constants.NATIVE_TOKEN) {
-            payable(msg.sender).call{value: _amount}("");
+            (success, ) = payable(msg.sender).call{value: _amount}("");
         } else {
-            bool success = IERC20(_tokenCollateralAddress).transfer(
+            success = IERC20(_tokenCollateralAddress).transfer(
                 msg.sender,
                 _amount
             );
-            require(success, "Protocol__TransferFailed");
         }
+        require(success, "Protocol__TransferFailed");
 
         emit CollateralWithdrawn(msg.sender, _tokenCollateralAddress, _amount);
     }
@@ -398,6 +399,26 @@ contract ProtocolFacet {
             _amount,
             _appStorage.s_orderId
         );
+    }
+
+    function closeListingAds(uint96 _listingId) public {
+        LoanListing storage _listing = _appStorage.loanListings[_listingId];
+        if (_listing.author != msg.sender) revert Protocol__NotOwner();
+        if (_listing.listingStatus != ListingStatus.OPEN)
+            revert Protocol__ListingNotOpen();
+        if (_listing.amount == 0) revert Protocol__MustBeMoreThanZero();
+
+        uint256 _remainingAmount = _listing.amount;
+        _listing.amount = 0;
+        _listing.listingStatus = ListingStatus.CLOSED;
+
+        bool success = IERC20(_listing.tokenAddress).transfer(
+            msg.sender,
+            _remainingAmount
+        );
+        require(success, "Protocol__TransferFailed");
+
+        emit ListingClosed(msg.sender, _listingId);
     }
 
     /**
@@ -528,9 +549,9 @@ contract ProtocolFacet {
         _newRequest.lender = _listing.author;
         _newRequest.amount = _amount;
         _newRequest.interest = _listing.interest;
-        _newRequest.returnDate = _listing.returnDate + block.timestamp;
+        _newRequest.returnDate = _listing.returnDate;
         _newRequest.totalRepayment = _calculateLoanInterest(
-            _listing.returnDate + block.timestamp,
+            _listing.returnDate,
             _amount,
             _listing.interest
         );
