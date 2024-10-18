@@ -49,7 +49,7 @@ contract Diamond {
             _appStorage.s_priceFeeds[_tokens[i]] = _priceFeeds[i];
             _appStorage.s_collateralToken.push(_tokens[i]);
         }   
-            _appStorage.swapRouter = address(0x94cC0AaC535CCDB3C01d6787D6413C739ae12bc4);
+            _appStorage.swapRouter = address(0x1689E7B1F10000AE47eBfE339a4f69dECd19F602);
   
 
     }

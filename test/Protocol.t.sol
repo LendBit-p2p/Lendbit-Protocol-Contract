@@ -109,6 +109,9 @@ contract ProtocolTest is Test, IDiamondCut {
 
         // protocolFacet.approveUserToSpendTokens(DIA_CONTRACT_ADDRESS, B, type(uint).max);
 
+        protocolFacet.setBotAddress(C);
+
+
         switchSigner(owner);
         IERC20(USDT_CONTRACT_ADDRESS).approve(
             address(protocolFacet),
@@ -129,6 +132,8 @@ contract ProtocolTest is Test, IDiamondCut {
         // IERC20(WETH_CONTRACT_ADDRESS).approve(B, type(uint).max);
 
         transferTokenToOwner();
+
+
     }
 
     function testDepositTCollateral() public {
@@ -622,16 +627,55 @@ contract ProtocolTest is Test, IDiamondCut {
         assertEq(_listing.amount, 5E10);
     }
 
-      function testLiquidateUser() external{
+ function testSwapEthToToken() external {
+    switchSigner(owner);
+    
+    IERC20(LINK_CONTRACT_ADDRESS).transfer(address(protocolFacet), 200 ether);
 
-            testRequestLoanFromListing();
-            protocolFacet.liquidateUserRequest(1);
-            
+    switchSigner(B);
+    
+    vm.deal(B, 50 ether);
+
+    uint256 linkBalanceBeforeSwap = IERC20(LINK_CONTRACT_ADDRESS).balanceOf(address(protocolFacet));
+
+    uint[] memory amountsOut = protocolFacet.swapToLoanCurrency(address(1), 10 ether, LINK_CONTRACT_ADDRESS);
+
+    uint256 linkBalanceAfterSwap = IERC20(LINK_CONTRACT_ADDRESS).balanceOf(address(protocolFacet));
+
+    assertGt(amountsOut[1], 0);
+
+    assertGt(linkBalanceAfterSwap, linkBalanceBeforeSwap);
+
+    uint256 linkReceived = linkBalanceAfterSwap - linkBalanceBeforeSwap;
+    
+    assertEq(linkReceived, amountsOut[1]);
+}
 
 
+function testSwapTokenForEth() external {
 
+      switchSigner(owner);
+    
+    IERC20(LINK_CONTRACT_ADDRESS).transfer(address(protocolFacet), 200 ether);
 
-    }
+    switchSigner(B);
+    
+    vm.deal(B, 50 ether);
+
+    uint256 linkBalanceBeforeSwap = IERC20(LINK_CONTRACT_ADDRESS).balanceOf(address(protocolFacet));
+
+    uint[] memory amountsOut = protocolFacet.swapToLoanCurrency(address(1), 10 ether, LINK_CONTRACT_ADDRESS);
+
+    uint256 linkBalanceAfterSwap = IERC20(LINK_CONTRACT_ADDRESS).balanceOf(address(protocolFacet));
+
+    assertGt(amountsOut[1], 0);
+
+    assertGt(linkBalanceAfterSwap, linkBalanceBeforeSwap);
+
+    uint256 linkReceived = linkBalanceAfterSwap - linkBalanceBeforeSwap;
+    
+    assertEq(linkReceived, amountsOut[1]);
+}
 
     function createLoanListing() public {
         switchSigner(owner);
