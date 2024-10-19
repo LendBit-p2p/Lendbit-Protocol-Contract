@@ -1,15 +1,16 @@
 // SPDX-License-Identifier: SEE LICENSE IN LICENSE
 pragma solidity ^0.8.9;
 import {LibAppStorage} from "../libraries/LibAppStorage.sol";
-import {AggregatorV3Interface} from "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
+import  "../../lib/chainlink-brownie-contracts/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 import {Constants} from "../utils/constants/constant.sol";
 import {Validator} from "../utils/validators/Validator.sol";
 import {LibDiamond} from "../libraries/LibDiamond.sol";
-import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "../../lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
+import  "../../lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol";
 import "../utils/validators/Error.sol";
 import "../model/Event.sol";
 import "../model/Protocol.sol";
+import "../interfaces/IUniswapV2Router02.sol";      
 
 import "../utils/functions/Utils.sol";
 
@@ -51,6 +52,21 @@ contract ProtocolFacet {
      */
     modifier _nativeMoreThanZero(address _token) {
         if (_token == Constants.NATIVE_TOKEN && msg.value <= 0) {
+            revert Protocol__MustBeMoreThanZero();
+        }
+        _;
+    }
+
+    /**
+     * @dev Ensure that only bot address can call this function
+     * @param _requestId the id of the request that will be liquidate
+     */
+    modifier onlyBot(uint96 _requestId) {
+        if (_appStorage.botAddress != msg.sender) {
+            revert Protocol__OnlyBotCanAccess();
+        }
+
+        if (_requestId <= 0) {
             revert Protocol__MustBeMoreThanZero();
         }
         _;
@@ -131,8 +147,15 @@ contract ProtocolFacet {
         if (!_appStorage.s_isLoanable[_loanCurrency]) {
             revert Protocol__TokenNotLoanable();
         }
+
+        if ((_returnDate - block.timestamp) < 1 days) {
+            revert Protocol__DateMustBeInFuture();
+        }
+
+        //get token decimal
         uint8 decimal = _getTokenDecimal(_loanCurrency);
 
+        //get usd value
         uint256 _loanUsdValue = getUsdValue(_loanCurrency, _amount, decimal);
 
         if (_loanUsdValue < 1) revert Protocol__InvalidAmount();
@@ -140,6 +163,7 @@ contract ProtocolFacet {
         uint256 collateralValueInLoanCurrency = getAccountCollateralValue(
             msg.sender
         );
+
         uint256 maxLoanableAmount = (collateralValueInLoanCurrency *
             Constants.COLLATERALIZATION_RATIO) / 100;
 
@@ -173,7 +197,8 @@ contract ProtocolFacet {
         _newRequest.collateralTokens = _collateralTokens;
         _newRequest.status = Status.OPEN;
 
-        uint256 collateralToLock = (_loanUsdValue * 100) / maxLoanableAmount; // Account for 80% LTV
+        uint256 collateralToLock = (_loanUsdValue * 100 * Constants.PRECISION) /
+            maxLoanableAmount; // Account for 80% LTV
 
         for (uint256 i = 0; i < _collateralTokens.length; i++) {
             address token = _collateralTokens[i];
@@ -188,8 +213,9 @@ contract ProtocolFacet {
                 userBalance,
                 _decimalToken
             ) * collateralToLock) / 100;
-            uint256 amountToLock = (((amountToLockUSD) * 10) /
-                getUsdValue(token, 10, 0)) * (10 ** _decimalToken);
+            uint256 amountToLock = ((((amountToLockUSD) * 10) /
+                getUsdValue(token, 10, 0)) * (10 ** _decimalToken)) /
+                Constants.PRECISION;
             _appStorage.s_idToCollateralTokenAmount[_appStorage.requestId][
                 token
             ] = amountToLock;
@@ -212,14 +238,23 @@ contract ProtocolFacet {
         address _tokenAddress
     ) external payable _nativeMoreThanZero(_tokenAddress) {
         Request storage _foundRequest = _appStorage.request[_requestId];
+        Request storage _Request = _appStorage.s_requests[_requestId - 1];
 
         if (_foundRequest.status != Status.OPEN)
             revert Protocol__RequestNotOpen();
         if (_foundRequest.loanRequestAddr != _tokenAddress)
             revert Protocol__InvalidToken();
+        if (_foundRequest.author == msg.sender) {
+            revert Protocol__CantFundSelf();
+        }
+        if (_foundRequest.returnDate <= block.timestamp) {
+            revert Protocol__RequestExpired();
+        }
 
         _foundRequest.lender = msg.sender;
+        _Request.lender = msg.sender;
         _foundRequest.status = Status.SERVICED;
+        _Request.status = Status.SERVICED;
         uint256 amountToLend = _foundRequest.amount;
 
         // Check if the lender has enough balance and the allowance to transfer the tokens
@@ -259,7 +294,6 @@ contract ProtocolFacet {
         }
 
         // Update the request's status to serviced
-        _foundRequest.status = Status.SERVICED;
         _appStorage
             .addressToUser[msg.sender]
             .totalLoanCollected += _loanUsdValue;
@@ -267,9 +301,13 @@ contract ProtocolFacet {
         for (uint i = 0; i < _foundRequest.collateralTokens.length; i++) {
             _appStorage.s_addressToAvailableBalance[_foundRequest.author][
                 _foundRequest.collateralTokens[i]
-            ] -= _appStorage.s_idToCollateralTokenAmount[_requestId][
-                _foundRequest.collateralTokens[i]
-            ];
+            ] =
+                _appStorage.s_addressToAvailableBalance[_foundRequest.author][
+                    _foundRequest.collateralTokens[i]
+                ] -
+                _appStorage.s_idToCollateralTokenAmount[_requestId][
+                    _foundRequest.collateralTokens[i]
+                ];
         }
 
         // Transfer the funds from the lender to the borrower
@@ -303,9 +341,10 @@ contract ProtocolFacet {
         address _tokenCollateralAddress,
         uint128 _amount
     ) external _isTokenAllowed(_tokenCollateralAddress) _moreThanZero(_amount) {
-        uint256 depositedAmount = _appStorage.s_addressToCollateralDeposited[
+        uint256 depositedAmount = _appStorage.s_addressToAvailableBalance[
             msg.sender
         ][_tokenCollateralAddress];
+
         if (depositedAmount < _amount) {
             revert Protocol__InsufficientCollateralDeposited();
         }
@@ -316,9 +355,6 @@ contract ProtocolFacet {
         _appStorage.s_addressToAvailableBalance[msg.sender][
             _tokenCollateralAddress
         ] -= _amount;
-
-        // Check if remaining collateral still covers all loan obligations
-        _revertIfHealthFactorIsBroken(msg.sender);
 
         if (_tokenCollateralAddress == Constants.NATIVE_TOKEN) {
             (bool sent, ) = payable(msg.sender).call{value: _amount}("");
@@ -431,6 +467,18 @@ contract ProtocolFacet {
             uint8(_newListing.listingStatus),
             _amount
         );
+    }
+
+    function closeRequest(uint96 _requestId) external {
+        Request storage _foundRequest = _appStorage.request[_requestId];
+        Request storage _Request = _appStorage.s_requests[_requestId - 1];
+
+        if (_foundRequest.status != Status.OPEN)
+            revert Protocol__RequestNotOpen();
+        if (_foundRequest.author != msg.sender) revert Protocol__NotOwner();
+
+        _foundRequest.status = Status.CLOSED;
+        _Request.status = Status.CLOSED;
     }
 
     /**
@@ -548,6 +596,14 @@ contract ProtocolFacet {
 
         _listing.amount = _listing.amount - _amount;
 
+        if (_listing.amount <= _listing.max_amount) {
+            _listing.max_amount = _listing.amount;
+        }
+
+        if (_listing.amount <= _listing.min_amount) {
+            _listing.min_amount = 0;
+        }
+
         address[] memory _collateralTokens = getUserCollateralTokens(
             msg.sender
         );
@@ -571,7 +627,8 @@ contract ProtocolFacet {
         _newRequest.collateralTokens = _collateralTokens;
         _newRequest.status = Status.SERVICED;
 
-        uint256 collateralToLock = (_loanUsdValue * 100) / maxLoanableAmount;
+        uint256 collateralToLock = (_loanUsdValue * 100 * Constants.PRECISION) /
+            maxLoanableAmount;
 
         for (uint256 i = 0; i < _collateralTokens.length; i++) {
             address token = _collateralTokens[i];
@@ -586,8 +643,10 @@ contract ProtocolFacet {
                 userBalance,
                 decimal
             ) * collateralToLock) / 100;
-            uint256 amountToLock = ((amountToLockUSD * 10) /
-                getUsdValue(token, 10, 0)) * (10 ** decimal);
+            uint256 amountToLock = ((((amountToLockUSD) * 10) /
+                getUsdValue(token, 10, 0)) * (10 ** _decimalToken)) /
+                Constants.PRECISION;
+
             _appStorage.s_idToCollateralTokenAmount[_appStorage.requestId][
                 token
             ] = amountToLock;
@@ -630,6 +689,8 @@ contract ProtocolFacet {
     function repayLoan(uint96 _requestId, uint256 _amount) external payable {
         require(_amount > 0, "Protocol__MustBeMoreThanZero");
         Request storage _request = _appStorage.request[_requestId];
+        Request storage _foundRequest = _appStorage.s_requests[_requestId - 1];
+
         if (_request.status != Status.SERVICED)
             revert Protocol__RequestNotServiced();
 
@@ -644,14 +705,19 @@ contract ProtocolFacet {
             }
             if (_token.allowance(msg.sender, address(this)) < _amount)
                 revert Protocol__InsufficientAllowance();
+
+            _token.transferFrom(msg.sender, address(this), _amount);
         }
 
         if (_amount >= _request.totalRepayment) {
-            _request.totalRepayment = 0;
-            _request.status = Status.CLOSED;
             _amount = _request.totalRepayment;
+            _request.totalRepayment = 0;
+            _foundRequest.totalRepayment = 0;
+            _request.status = Status.CLOSED;
+            _foundRequest.status = Status.CLOSED;
         } else {
             _request.totalRepayment -= _amount;
+            _foundRequest.totalRepayment -= _amount;
         }
 
         uint8 decimal = _getTokenDecimal(_request.loanRequestAddr);
@@ -685,6 +751,150 @@ contract ProtocolFacet {
         }
 
         emit LoanRepayment(msg.sender, _requestId, _amount);
+    }
+
+
+
+    function liquidateUserRequest(uint96 requestId)
+        external
+        onlyBot(requestId)
+    {
+        Request memory _activeRequest = 
+        getActiveRequestsByRequestId(requestId);
+
+        
+        address loanCurrency = _activeRequest.loanRequestAddr;
+        address lenderAddress = _activeRequest.lender;
+        uint256 swappedAmount = 0;
+        
+        for (uint96 index = 0; index < _activeRequest.collateralTokens.length; index++) {
+            address collateralToken = _activeRequest.collateralTokens[index];
+            uint256 amountOfCollateralToken =
+            _appStorage.s_idToCollateralTokenAmount[requestId][collateralToken];
+            
+            if (amountOfCollateralToken > 0) {
+               
+
+                uint256 [] memory loanCurrencyAmount = 
+                swapToLoanCurrency(collateralToken, amountOfCollateralToken, loanCurrency);
+
+                _appStorage.s_addressToCollateralDeposited[
+                    _activeRequest.author][collateralToken] -= amountOfCollateralToken;
+
+                if(loanCurrencyAmount.length > 0) {
+
+                    swappedAmount += loanCurrencyAmount[1];
+                }else{
+                    swappedAmount += amountOfCollateralToken;
+                }
+
+                _appStorage.s_idToCollateralTokenAmount[requestId][collateralToken] = 0;
+            }
+        }
+
+        // Transfer total repayment to lender
+        IERC20(loanCurrency).transfer(lenderAddress, _activeRequest.totalRepayment);
+        
+        _activeRequest.status = Status.CLOSED;
+
+        emit RequestLiquidated(
+            requestId,
+            lenderAddress,
+            _activeRequest.totalRepayment
+        );
+    }
+
+
+
+function swapToLoanCurrency(
+    address collateralToken,
+    uint256 collateralAmount,
+    address loanCurrency
+) public returns (uint256[] memory loanCurrencyAmount) {
+    
+ 
+
+    uint256 amountOfTokenOut_ = getConvertValue(collateralToken, loanCurrency, collateralAmount);
+    uint[] memory amountsOut;
+
+    if(loanCurrency == collateralToken) {
+        return amountsOut;
+    } 
+
+     if (collateralToken == Constants.NATIVE_TOKEN) {
+         // Wrap ETH to WETH by depositing it
+        collateralToken = Constants.WETH;
+        }
+
+        address[] memory path = new address[](2); 
+        path[0] = collateralToken;
+        path[1] = loanCurrency;
+
+    // If collateralToken is ETH, use swapExactETHForTokens
+
+
+
+    if (collateralToken == Constants.WETH) {
+        amountsOut = IUniswapV2Router02(_appStorage.swapRouter).swapExactETHForTokens{value: collateralAmount}(
+            amountOfTokenOut_,
+            path,
+            address(this),
+            block.timestamp + 300
+        );
+
+    // If loanCurrency is ETH, use swapTokensForExactETH
+    } else if (loanCurrency == Constants.WETH) {
+
+        // Approve Uniswap to spend collateral tokens
+        IERC20(collateralToken).approve(_appStorage.swapRouter, collateralAmount);
+
+        path[0] = loanCurrency;
+        path[1] = collateralToken;
+
+        amountsOut = IUniswapV2Router02(_appStorage.swapRouter).swapExactTokensForETH(
+            collateralAmount,
+            amountOfTokenOut_,
+            path,
+            address(this),
+            block.timestamp + 300
+        );
+
+    // For ERC20 to ERC20 swaps, use swapExactTokensForTokens
+    }else {
+        // Approve Uniswap to spend collateral tokens
+        IERC20(collateralToken).approve(_appStorage.swapRouter, collateralAmount);
+
+        amountsOut = IUniswapV2Router02(_appStorage.swapRouter).swapExactTokensForTokens(
+            collateralAmount,
+            amountOfTokenOut_,
+            path,
+            address(this),
+            block.timestamp + 300
+        );
+    }
+    
+    return amountsOut; // Return the amount of loan currency received
+}
+
+
+    function getActiveRequestsByRequestId(
+        uint96 _requestId
+    ) private view returns (Request memory) {
+        Request memory _request = _appStorage.request[_requestId];
+        if (_request.status != Status.SERVICED) {
+            revert Protocol__RequestNotServiced();
+        }
+        return _request;
+    }
+
+    function setBotAddress(address _botAddress) external {
+        LibDiamond.enforceIsContractOwner();
+        _appStorage.botAddress = _botAddress;
+    }
+
+    function setSwapRouter(address _swapRouter) external {
+        LibDiamond.enforceIsContractOwner();
+        _appStorage.swapRouter = _swapRouter;
     }
 
     ///////////////////////
@@ -739,6 +949,27 @@ contract ProtocolFacet {
             ];
             uint8 _tokenDecimal = _getTokenDecimal(_token);
             _totalCollateralValueInUsd += getUsdValue(
+                _token,
+                _amount,
+                _tokenDecimal
+            );
+        }
+    }
+
+    function getAccountAvailableValue(
+        address _user
+    ) public view returns (uint256 _totalAvailableValueInUsd) {
+        for (
+            uint256 index = 0;
+            index < _appStorage.s_collateralToken.length;
+            index++
+        ) {
+            address _token = _appStorage.s_collateralToken[index];
+            uint256 _amount = _appStorage.s_addressToAvailableBalance[_user][
+                _token
+            ];
+            uint8 _tokenDecimal = _getTokenDecimal(_token);
+            _totalAvailableValueInUsd += getUsdValue(
                 _token,
                 _amount,
                 _tokenDecimal
@@ -822,6 +1053,7 @@ contract ProtocolFacet {
 
         if ((_totalBurrowInUsd == 0) && (_borrow_Value == 0))
             return (_collateralAdjustedForThreshold * Constants.PRECISION);
+
         return
             (_collateralAdjustedForThreshold * Constants.PRECISION) /
             (_totalBurrowInUsd + _borrow_Value);
@@ -872,6 +1104,13 @@ contract ProtocolFacet {
         address _tokenAddr
     ) external view returns (uint256) {
         return _appStorage.s_addressToAvailableBalance[_sender][_tokenAddr];
+    }
+
+    function getRequestToColateral(
+        uint96 _requestId,
+        address _token
+    ) external view returns (uint256) {
+        return _appStorage.s_idToCollateralTokenAmount[_requestId][_token];
     }
 
     /// @dev calculates the loan interest and add it to the loam
@@ -946,6 +1185,27 @@ contract ProtocolFacet {
                 requests[i].author == _user &&
                 requests[i].status == Status.SERVICED
             ) {
+                _requests[requestLength - 1] = requests[i];
+                requestLength--;
+            }
+        }
+    }
+
+    function getServicedRequestByLender(
+        address _lender
+    ) public view returns (Request[] memory _requests) {
+        Request[] memory requests = _appStorage.s_requests;
+        uint64 requestLength;
+        for (uint i = 0; i < requests.length; i++) {
+            if (requests[i].lender == _lender) {
+                requestLength++;
+            }
+        }
+
+        _requests = new Request[](requestLength);
+
+        for (uint i = 0; i < requests.length; i++) {
+            if (requests[i].lender == _lender) {
                 _requests[requestLength - 1] = requests[i];
                 requestLength--;
             }

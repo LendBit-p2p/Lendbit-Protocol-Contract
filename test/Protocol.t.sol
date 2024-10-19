@@ -40,6 +40,9 @@ contract ProtocolTest is Test, IDiamondCut {
     address B = address(0xb);
     address C = address(0xc);
 
+    address botAddress = address(0x0beaf0BfC5D1f3f3F8d3a6b0F1B6E3f2b0f1b6e3);
+    address swapRouterAddress = 0x1689E7B1F10000AE47eBfE339a4f69dECd19F602;
+
     address[] tokens;
     address[] priceFeed;
 
@@ -106,8 +109,13 @@ contract ProtocolTest is Test, IDiamondCut {
         diamond.initialize(tokens, priceFeed);
 
         protocolFacet = ProtocolFacet(address(diamond));
+        protocolFacet.setBotAddress(botAddress);
+        protocolFacet.setSwapRouter(swapRouterAddress);
 
         // protocolFacet.approveUserToSpendTokens(DIA_CONTRACT_ADDRESS, B, type(uint).max);
+
+        protocolFacet.setBotAddress(C);
+
 
         switchSigner(owner);
         IERC20(USDT_CONTRACT_ADDRESS).approve(
@@ -129,6 +137,8 @@ contract ProtocolTest is Test, IDiamondCut {
         // IERC20(WETH_CONTRACT_ADDRESS).approve(B, type(uint).max);
 
         transferTokenToOwner();
+
+
     }
 
     function testDepositTCollateral() public {
@@ -151,13 +161,25 @@ contract ProtocolTest is Test, IDiamondCut {
         assertEq(_amountQualaterized, 100 ether);
     }
 
-    function testGetUsdValue() public {
+    function testGetUsdValue() public view {
         uint256 value = protocolFacet.getUsdValue(
             ETH_CONTRACT_ADDRESS,
             0.1 ether,
             18
         );
         assert(value > 0);
+    }
+
+    function testGetAccountAvailableValue() public {
+        testDepositTCollateral();
+        uint256 _avaiable = protocolFacet.getAccountAvailableValue(owner);
+        uint256 value = protocolFacet.getUsdValue(
+            USDT_CONTRACT_ADDRESS,
+            100E6,
+            6
+        );
+
+        assertEq(_avaiable, value);
     }
 
     function testServiceNativeRequest() public {
@@ -186,7 +208,38 @@ contract ProtocolTest is Test, IDiamondCut {
         );
     }
 
-    function testGetConvertValue() external {
+    function testGetServicedRequestByLender() public {
+        testServiceNativeRequest();
+        Request[] memory _requests = protocolFacet.getServicedRequestByLender(
+            B
+        );
+
+        assertEq(_requests.length, 1);
+    }
+
+    function testCloseRequest() public {
+        switchSigner(owner);
+        protocolFacet.depositCollateral(USDT_CONTRACT_ADDRESS, 1000000000);
+
+        uint128 requestAmount = 0.01 ether;
+        uint16 interestRate = 500;
+        uint256 returnDate = block.timestamp + 365 days;
+
+        protocolFacet.createLendingRequest(
+            requestAmount,
+            interestRate,
+            returnDate,
+            ETH_CONTRACT_ADDRESS
+        );
+
+        protocolFacet.closeRequest(1);
+
+        Request[] memory requests = protocolFacet.getUserActiveRequests(owner);
+
+        assertEq(requests.length, 0);
+    }
+
+    function testGetConvertValue() external view {
         uint256 value = protocolFacet.getConvertValue(
             ETH_CONTRACT_ADDRESS,
             USDT_CONTRACT_ADDRESS,
@@ -253,6 +306,18 @@ contract ProtocolTest is Test, IDiamondCut {
             .gets_addressToCollateralDeposited(owner, ETH_CONTRACT_ADDRESS);
         assertEq(_amountCollaterized, 150 ether);
         assertEq(address(owner).balance, 350 ether);
+    }
+
+    function testGetHealthFactorBeforeDeposit() public view {
+        uint256 value = protocolFacet.getHealthFactor(owner);
+        assertEq(value, 0);
+    }
+
+    function testGetHealthFactorAfterDeposit() public {
+        testDepositTCollateral();
+        switchSigner(owner);
+        uint256 value = protocolFacet.getHealthFactor(owner);
+        assertEq(value, 0);
     }
 
     function testNativeListingAds() external {
@@ -374,6 +439,50 @@ contract ProtocolTest is Test, IDiamondCut {
 
         assertEq(_borrowRequest.lender, B);
         assertEq(uint8(_borrowRequest.status), uint8(1));
+    }
+
+    function testServiceRequestAvailable() public {
+        // IERC20 daiContract = IERC20(WETHHolders);
+        // switchSigner(WETHHolders);
+        switchSigner(owner);
+        IERC20(LINK_CONTRACT_ADDRESS).transfer(B, 2 ether);
+        IERC20(LINK_CONTRACT_ADDRESS).approve(address(protocolFacet), 1 ether);
+
+        protocolFacet.depositCollateral(LINK_CONTRACT_ADDRESS, 1 ether);
+        // uint256 _amountQualaterized = protocolFacet
+        //     .gets_addressToCollateralDeposited(owner, LINK_CONTRACT_ADDRESS);
+
+        uint128 requestAmount = 0.5 ether;
+        uint16 interestRate = 500;
+        uint256 returnDate = block.timestamp + 365 days; // 1 year later
+
+        protocolFacet.createLendingRequest(
+            requestAmount,
+            interestRate,
+            returnDate,
+            LINK_CONTRACT_ADDRESS
+        );
+
+        uint256 tokenBal = protocolFacet.getRequestToColateral(
+            1,
+            LINK_CONTRACT_ADDRESS
+        );
+        switchSigner(B);
+
+        IERC20(LINK_CONTRACT_ADDRESS).approve(
+            address(protocolFacet),
+            requestAmount
+        );
+        protocolFacet.serviceRequest(1, LINK_CONTRACT_ADDRESS);
+        uint256 bal = protocolFacet.gets_addressToAvailableBalance(
+            owner,
+            LINK_CONTRACT_ADDRESS
+        );
+
+        console.log("Token Balance", tokenBal);
+        console.log("Available Balance", bal);
+
+        assert(bal < 0.5 ether);
     }
 
     function testServiceRequestFailsAfterFirstService() public {
@@ -533,6 +642,43 @@ contract ProtocolTest is Test, IDiamondCut {
         assertEq(_requestAfterRepay.totalRepayment, 0);
     }
 
+    function testRepayLoanAvailable() public {
+        testServiceRequestAvailable();
+        switchSigner(owner);
+        Request memory _request = protocolFacet.getRequest(1);
+
+        IERC20(_request.loanRequestAddr).approve(
+            address(protocolFacet),
+            _request.totalRepayment
+        );
+        uint256 totalRepayment = _request.totalRepayment;
+        protocolFacet.repayLoan(1, totalRepayment);
+
+        Request[] memory _requestAfterRepay = protocolFacet
+            .getUserActiveRequests(owner);
+
+        uint256 loanerCA = protocolFacet.gets_addressToCollateralDeposited(
+            _request.lender,
+            _request.loanRequestAddr
+        );
+        uint256 loanerAB = protocolFacet.gets_addressToAvailableBalance(
+            _request.lender,
+            _request.loanRequestAddr
+        );
+
+        Request memory _request1 = protocolFacet.getRequest(1);
+
+        uint256 conbal = IERC20(_request.loanRequestAddr).balanceOf(
+            address(protocolFacet)
+        );
+
+        assertEq(uint8(_requestAfterRepay.length), uint8(0));
+        assertEq(_request1.totalRepayment, 0);
+        assertEq(loanerCA, totalRepayment);
+        assertEq(loanerAB, totalRepayment);
+        assertEq(conbal, loanerAB + 1 ether);
+    }
+
     function testRepayLoanFailsWithoutAllowance() public {
         testServiceRequest();
         switchSigner(owner);
@@ -616,6 +762,94 @@ contract ProtocolTest is Test, IDiamondCut {
         assertEq(uint8(_request.status), uint8(Status.SERVICED));
         assertEq(_listing.amount, 5E10);
     }
+
+ function testSwapEthToToken() external {
+    switchSigner(owner);
+    
+    IERC20(LINK_CONTRACT_ADDRESS).transfer(address(protocolFacet), 200 ether);
+
+    switchSigner(B);
+    
+    vm.deal(B, 50 ether);
+
+    uint256 linkBalanceBeforeSwap = IERC20(LINK_CONTRACT_ADDRESS).balanceOf(address(protocolFacet));
+
+    uint[] memory amountsOut = protocolFacet.swapToLoanCurrency(address(1), 10 ether, LINK_CONTRACT_ADDRESS);
+
+    uint256 linkBalanceAfterSwap = IERC20(LINK_CONTRACT_ADDRESS).balanceOf(address(protocolFacet));
+
+    assertGt(amountsOut[1], 0);
+
+    assertGt(linkBalanceAfterSwap, linkBalanceBeforeSwap);
+
+    uint256 linkReceived = linkBalanceAfterSwap - linkBalanceBeforeSwap;
+    
+    assertEq(linkReceived, amountsOut[1]);
+}
+
+
+function testSwapTokenForEth() external {
+
+    switchSigner(owner);
+
+    IERC20(LINK_CONTRACT_ADDRESS).transfer(address(protocolFacet), 200 ether);
+
+    switchSigner(B);
+    
+    vm.deal(B, 50 ether);
+
+    uint256 ethBalanceBeforeSwap = address(protocolFacet).balance;
+
+    uint[] memory amountsOut = protocolFacet.swapToLoanCurrency(LINK_CONTRACT_ADDRESS, 10 ether, Constants.NATIVE_TOKEN);
+
+    uint256 ethBalanceAfterSwap = address(protocolFacet).balance;
+
+    //  Assert that some ETH was received from the swap
+    assertGt(amountsOut[1], 0); 
+    // Assert that the ETH balance of protocolFacet increased
+    assertGt(ethBalanceAfterSwap, ethBalanceBeforeSwap);
+
+    //  Calculate how much ETH was received
+    uint256 ethReceived = ethBalanceAfterSwap - ethBalanceBeforeSwap;
+
+    // Assert that the received ETH matches the output amount from the swap
+    assertEq(ethReceived, amountsOut[1]);
+}
+
+
+function testswapExactTokensForTokens() external {
+    switchSigner(owner);
+    
+    IERC20(LINK_CONTRACT_ADDRESS).transfer(address(protocolFacet), 200 ether);
+
+    switchSigner(B);
+    
+    vm.deal(B, 50 ether);
+
+    // Get the balance of LINK (collateral token) and DAI (loan currency) before the swap
+    uint256 linkBalanceBeforeSwap = IERC20(LINK_CONTRACT_ADDRESS).balanceOf(address(protocolFacet));
+    uint256 daiBalanceBeforeSwap = IERC20(DIA_CONTRACT_ADDRESS).balanceOf(address(protocolFacet));
+
+    // Perform the swap: swap 10 LINK tokens for DAI
+    uint[] memory amountsOut = 
+    protocolFacet.swapToLoanCurrency(LINK_CONTRACT_ADDRESS, 10 ether, DIA_CONTRACT_ADDRESS);
+
+    // Get the balance of LINK and DAI after the swap
+    uint256 linkBalanceAfterSwap = IERC20(LINK_CONTRACT_ADDRESS).balanceOf(address(protocolFacet));
+    uint256 daiBalanceAfterSwap = IERC20(DIA_CONTRACT_ADDRESS).balanceOf(address(protocolFacet));
+
+    // Assert that LINK balance decreased after the swap
+    assertLt(linkBalanceAfterSwap, linkBalanceBeforeSwap);
+
+    // Assert that DAI balance increased after the swap
+    assertGt(daiBalanceAfterSwap, daiBalanceBeforeSwap);
+
+    // Optionally, check how much DAI was received
+    uint256 daiReceived = daiBalanceAfterSwap - daiBalanceBeforeSwap;
+
+    // Assert that the DAI received matches the output amount in `amountsOut`
+    assertEq(daiReceived, amountsOut[1]); // Ensure DAI received matches amountsOut[1].
+}
 
     function createLoanListing() public {
         switchSigner(owner);
