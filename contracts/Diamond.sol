@@ -48,7 +48,10 @@ contract Diamond {
             _appStorage.s_isLoanable[_tokens[i]] = true;
             _appStorage.s_priceFeeds[_tokens[i]] = _priceFeeds[i];
             _appStorage.s_collateralToken.push(_tokens[i]);
-        }     
+        }   
+            _appStorage.swapRouter = address(0x94cC0AaC535CCDB3C01d6787D6413C739ae12bc4);
+  
+
     }
 
     // Find facet for function that is called and execute the

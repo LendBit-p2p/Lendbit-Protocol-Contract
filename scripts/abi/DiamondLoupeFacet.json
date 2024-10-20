@@ -1,0 +1,482 @@
+{
+  "fragments": [
+    {
+      "type": "function",
+      "name": "facetAddress",
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_functionSelector",
+          "type": "bytes4",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "bytes4",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "facetAddress_",
+          "type": "address",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "gas": null,
+      "_isFragment": true
+    },
+    {
+      "type": "function",
+      "name": "facetAddresses",
+      "constant": true,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "facetAddresses_",
+          "type": "address[]",
+          "indexed": null,
+          "components": null,
+          "arrayLength": -1,
+          "arrayChildren": {
+            "name": null,
+            "type": "address",
+            "indexed": null,
+            "components": null,
+            "arrayLength": null,
+            "arrayChildren": null,
+            "baseType": "address",
+            "_isParamType": true
+          },
+          "baseType": "array",
+          "_isParamType": true
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "gas": null,
+      "_isFragment": true
+    },
+    {
+      "type": "function",
+      "name": "facetFunctionSelectors",
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_facet",
+          "type": "address",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "facetFunctionSelectors_",
+          "type": "bytes4[]",
+          "indexed": null,
+          "components": null,
+          "arrayLength": -1,
+          "arrayChildren": {
+            "name": null,
+            "type": "bytes4",
+            "indexed": null,
+            "components": null,
+            "arrayLength": null,
+            "arrayChildren": null,
+            "baseType": "bytes4",
+            "_isParamType": true
+          },
+          "baseType": "array",
+          "_isParamType": true
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "gas": null,
+      "_isFragment": true
+    },
+    {
+      "type": "function",
+      "name": "facets",
+      "constant": true,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "facets_",
+          "type": "tuple[]",
+          "indexed": null,
+          "components": [
+            {
+              "name": "facetAddress",
+              "type": "address",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "address",
+              "_isParamType": true
+            },
+            {
+              "name": "functionSelectors",
+              "type": "bytes4[]",
+              "indexed": null,
+              "components": null,
+              "arrayLength": -1,
+              "arrayChildren": {
+                "name": null,
+                "type": "bytes4",
+                "indexed": null,
+                "components": null,
+                "arrayLength": null,
+                "arrayChildren": null,
+                "baseType": "bytes4",
+                "_isParamType": true
+              },
+              "baseType": "array",
+              "_isParamType": true
+            }
+          ],
+          "arrayLength": -1,
+          "arrayChildren": {
+            "name": null,
+            "type": "tuple",
+            "indexed": null,
+            "components": [
+              {
+                "name": "facetAddress",
+                "type": "address",
+                "indexed": null,
+                "components": null,
+                "arrayLength": null,
+                "arrayChildren": null,
+                "baseType": "address",
+                "_isParamType": true
+              },
+              {
+                "name": "functionSelectors",
+                "type": "bytes4[]",
+                "indexed": null,
+                "components": null,
+                "arrayLength": -1,
+                "arrayChildren": {
+                  "name": null,
+                  "type": "bytes4",
+                  "indexed": null,
+                  "components": null,
+                  "arrayLength": null,
+                  "arrayChildren": null,
+                  "baseType": "bytes4",
+                  "_isParamType": true
+                },
+                "baseType": "array",
+                "_isParamType": true
+              }
+            ],
+            "arrayLength": null,
+            "arrayChildren": null,
+            "baseType": "tuple",
+            "_isParamType": true
+          },
+          "baseType": "array",
+          "_isParamType": true
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "gas": null,
+      "_isFragment": true
+    },
+    {
+      "type": "function",
+      "name": "supportsInterface",
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_interfaceId",
+          "type": "bytes4",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "bytes4",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": null,
+          "type": "bool",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "bool",
+          "_isParamType": true
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "gas": null,
+      "_isFragment": true
+    }
+  ],
+  "_abiCoder": {
+    "coerceFunc": null
+  },
+  "functions": {
+    "facetAddress(bytes4)": {
+      "type": "function",
+      "name": "facetAddress",
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_functionSelector",
+          "type": "bytes4",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "bytes4",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "facetAddress_",
+          "type": "address",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "gas": null,
+      "_isFragment": true
+    },
+    "facetAddresses()": {
+      "type": "function",
+      "name": "facetAddresses",
+      "constant": true,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "facetAddresses_",
+          "type": "address[]",
+          "indexed": null,
+          "components": null,
+          "arrayLength": -1,
+          "arrayChildren": {
+            "name": null,
+            "type": "address",
+            "indexed": null,
+            "components": null,
+            "arrayLength": null,
+            "arrayChildren": null,
+            "baseType": "address",
+            "_isParamType": true
+          },
+          "baseType": "array",
+          "_isParamType": true
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "gas": null,
+      "_isFragment": true
+    },
+    "facetFunctionSelectors(address)": {
+      "type": "function",
+      "name": "facetFunctionSelectors",
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_facet",
+          "type": "address",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "facetFunctionSelectors_",
+          "type": "bytes4[]",
+          "indexed": null,
+          "components": null,
+          "arrayLength": -1,
+          "arrayChildren": {
+            "name": null,
+            "type": "bytes4",
+            "indexed": null,
+            "components": null,
+            "arrayLength": null,
+            "arrayChildren": null,
+            "baseType": "bytes4",
+            "_isParamType": true
+          },
+          "baseType": "array",
+          "_isParamType": true
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "gas": null,
+      "_isFragment": true
+    },
+    "facets()": {
+      "type": "function",
+      "name": "facets",
+      "constant": true,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "facets_",
+          "type": "tuple[]",
+          "indexed": null,
+          "components": [
+            {
+              "name": "facetAddress",
+              "type": "address",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "address",
+              "_isParamType": true
+            },
+            {
+              "name": "functionSelectors",
+              "type": "bytes4[]",
+              "indexed": null,
+              "components": null,
+              "arrayLength": -1,
+              "arrayChildren": {
+                "name": null,
+                "type": "bytes4",
+                "indexed": null,
+                "components": null,
+                "arrayLength": null,
+                "arrayChildren": null,
+                "baseType": "bytes4",
+                "_isParamType": true
+              },
+              "baseType": "array",
+              "_isParamType": true
+            }
+          ],
+          "arrayLength": -1,
+          "arrayChildren": {
+            "name": null,
+            "type": "tuple",
+            "indexed": null,
+            "components": [
+              {
+                "name": "facetAddress",
+                "type": "address",
+                "indexed": null,
+                "components": null,
+                "arrayLength": null,
+                "arrayChildren": null,
+                "baseType": "address",
+                "_isParamType": true
+              },
+              {
+                "name": "functionSelectors",
+                "type": "bytes4[]",
+                "indexed": null,
+                "components": null,
+                "arrayLength": -1,
+                "arrayChildren": {
+                  "name": null,
+                  "type": "bytes4",
+                  "indexed": null,
+                  "components": null,
+                  "arrayLength": null,
+                  "arrayChildren": null,
+                  "baseType": "bytes4",
+                  "_isParamType": true
+                },
+                "baseType": "array",
+                "_isParamType": true
+              }
+            ],
+            "arrayLength": null,
+            "arrayChildren": null,
+            "baseType": "tuple",
+            "_isParamType": true
+          },
+          "baseType": "array",
+          "_isParamType": true
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "gas": null,
+      "_isFragment": true
+    },
+    "supportsInterface(bytes4)": {
+      "type": "function",
+      "name": "supportsInterface",
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_interfaceId",
+          "type": "bytes4",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "bytes4",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": null,
+          "type": "bool",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "bool",
+          "_isParamType": true
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "gas": null,
+      "_isFragment": true
+    }
+  },
+  "errors": {},
+  "events": {},
+  "structs": {},
+  "deploy": {
+    "name": null,
+    "type": "constructor",
+    "inputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "gas": null,
+    "_isFragment": true
+  },
+  "_isInterface": true
+}

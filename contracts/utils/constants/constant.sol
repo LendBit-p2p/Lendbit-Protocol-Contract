@@ -9,4 +9,5 @@ library Constants {
     uint256 constant MIN_HEALTH_FACTOR = 1;
     uint256 constant COLLATERALIZATION_RATIO = 80;
     address constant NATIVE_TOKEN = address(1);
+    address constant WETH = 0x4200000000000000000000000000000000000006;
 }

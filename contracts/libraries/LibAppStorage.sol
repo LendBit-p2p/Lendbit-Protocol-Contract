@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: SEE LICENSE IN LICENSE
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.9;
 import "../model/Protocol.sol";
 
@@ -33,5 +33,7 @@ library LibAppStorage {
         uint96 requestId;
         uint96 s_orderId;
         uint96 listingId;
+        address botAddress;
+        address swapRouter;
     }
 }

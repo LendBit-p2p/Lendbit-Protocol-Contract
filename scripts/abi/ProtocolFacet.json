@@ -1,0 +1,3630 @@
+{
+  "fragments": [
+    {
+      "type": "error",
+      "name": "NotDiamondOwner",
+      "inputs": [],
+      "_isFragment": true
+    },
+    {
+      "type": "error",
+      "name": "Protocol__BreaksHealthFactor",
+      "inputs": [],
+      "_isFragment": true
+    },
+    {
+      "type": "error",
+      "name": "Protocol__DateMustBeInFuture",
+      "inputs": [],
+      "_isFragment": true
+    },
+    {
+      "type": "error",
+      "name": "Protocol__IdNotExist",
+      "inputs": [],
+      "_isFragment": true
+    },
+    {
+      "type": "error",
+      "name": "Protocol__InsufficientAllowance",
+      "inputs": [],
+      "_isFragment": true
+    },
+    {
+      "type": "error",
+      "name": "Protocol__InsufficientAmount",
+      "inputs": [],
+      "_isFragment": true
+    },
+    {
+      "type": "error",
+      "name": "Protocol__InsufficientBalance",
+      "inputs": [],
+      "_isFragment": true
+    },
+    {
+      "type": "error",
+      "name": "Protocol__InsufficientCollateral",
+      "inputs": [],
+      "_isFragment": true
+    },
+    {
+      "type": "error",
+      "name": "Protocol__InsufficientCollateralDeposited",
+      "inputs": [],
+      "_isFragment": true
+    },
+    {
+      "type": "error",
+      "name": "Protocol__InvalidAmount",
+      "inputs": [],
+      "_isFragment": true
+    },
+    {
+      "type": "error",
+      "name": "Protocol__InvalidToken",
+      "inputs": [],
+      "_isFragment": true
+    },
+    {
+      "type": "error",
+      "name": "Protocol__ListingNotOpen",
+      "inputs": [],
+      "_isFragment": true
+    },
+    {
+      "type": "error",
+      "name": "Protocol__MustBeMoreThanZero",
+      "inputs": [],
+      "_isFragment": true
+    },
+    {
+      "type": "error",
+      "name": "Protocol__NotOwner",
+      "inputs": [],
+      "_isFragment": true
+    },
+    {
+      "type": "error",
+      "name": "Protocol__OrderNotOpen",
+      "inputs": [],
+      "_isFragment": true
+    },
+    {
+      "type": "error",
+      "name": "Protocol__OwnerCreatedListing",
+      "inputs": [],
+      "_isFragment": true
+    },
+    {
+      "type": "error",
+      "name": "Protocol__OwnerCreatedOrder",
+      "inputs": [],
+      "_isFragment": true
+    },
+    {
+      "type": "error",
+      "name": "Protocol__RequestNotOpen",
+      "inputs": [],
+      "_isFragment": true
+    },
+    {
+      "type": "error",
+      "name": "Protocol__RequestNotServiced",
+      "inputs": [],
+      "_isFragment": true
+    },
+    {
+      "type": "error",
+      "name": "Protocol__TokenNotAllowed",
+      "inputs": [],
+      "_isFragment": true
+    },
+    {
+      "type": "error",
+      "name": "Protocol__TokenNotLoanable",
+      "inputs": [],
+      "_isFragment": true
+    },
+    {
+      "type": "error",
+      "name": "Protocol__TransferFailed",
+      "inputs": [],
+      "_isFragment": true
+    },
+    {
+      "type": "error",
+      "name": "Protocol__tokensAndPriceFeedsArrayMustBeSameLength",
+      "inputs": [],
+      "_isFragment": true
+    },
+    {
+      "name": "CollateralDeposited",
+      "anonymous": false,
+      "inputs": [
+        {
+          "name": "_sender",
+          "type": "address",
+          "indexed": true,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "_token",
+          "type": "address",
+          "indexed": true,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "_value",
+          "type": "uint256",
+          "indexed": false,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        }
+      ],
+      "type": "event",
+      "_isFragment": true
+    },
+    {
+      "name": "CollateralWithdrawn",
+      "anonymous": false,
+      "inputs": [
+        {
+          "name": "sender",
+          "type": "address",
+          "indexed": true,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "_tokenCollateralAddress",
+          "type": "address",
+          "indexed": true,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "_amount",
+          "type": "uint256",
+          "indexed": false,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        }
+      ],
+      "type": "event",
+      "_isFragment": true
+    },
+    {
+      "name": "LoanListingCreated",
+      "anonymous": false,
+      "inputs": [
+        {
+          "name": "listingId",
+          "type": "uint96",
+          "indexed": true,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint96",
+          "_isParamType": true
+        },
+        {
+          "name": "sender",
+          "type": "address",
+          "indexed": true,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "tokenAddress",
+          "type": "address",
+          "indexed": true,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "indexed": false,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        }
+      ],
+      "type": "event",
+      "_isFragment": true
+    },
+    {
+      "name": "LoanRepayment",
+      "anonymous": false,
+      "inputs": [
+        {
+          "name": "sender",
+          "type": "address",
+          "indexed": true,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "id",
+          "type": "uint96",
+          "indexed": false,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint96",
+          "_isParamType": true
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "indexed": false,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        }
+      ],
+      "type": "event",
+      "_isFragment": true
+    },
+    {
+      "name": "RequestCreated",
+      "anonymous": false,
+      "inputs": [
+        {
+          "name": "_borrower",
+          "type": "address",
+          "indexed": true,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "requestId",
+          "type": "uint96",
+          "indexed": true,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint96",
+          "_isParamType": true
+        },
+        {
+          "name": "_amount",
+          "type": "uint256",
+          "indexed": false,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        },
+        {
+          "name": "_interest",
+          "type": "uint16",
+          "indexed": false,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint16",
+          "_isParamType": true
+        }
+      ],
+      "type": "event",
+      "_isFragment": true
+    },
+    {
+      "name": "RequestServiced",
+      "anonymous": false,
+      "inputs": [
+        {
+          "name": "_requestId",
+          "type": "uint96",
+          "indexed": true,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint96",
+          "_isParamType": true
+        },
+        {
+          "name": "_lender",
+          "type": "address",
+          "indexed": true,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "_borrower",
+          "type": "address",
+          "indexed": true,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "_amount",
+          "type": "uint256",
+          "indexed": false,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        }
+      ],
+      "type": "event",
+      "_isFragment": true
+    },
+    {
+      "name": "UpdateLoanableToken",
+      "anonymous": false,
+      "inputs": [
+        {
+          "name": "_token",
+          "type": "address",
+          "indexed": true,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "_priceFeed",
+          "type": "address",
+          "indexed": false,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "sender",
+          "type": "address",
+          "indexed": true,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        }
+      ],
+      "type": "event",
+      "_isFragment": true
+    },
+    {
+      "name": "UpdatedCollateralTokens",
+      "anonymous": false,
+      "inputs": [
+        {
+          "name": "sender",
+          "type": "address",
+          "indexed": true,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "newTokensCount",
+          "type": "uint8",
+          "indexed": false,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint8",
+          "_isParamType": true
+        }
+      ],
+      "type": "event",
+      "_isFragment": true
+    },
+    {
+      "name": "withdrawnAdsToken",
+      "anonymous": false,
+      "inputs": [
+        {
+          "name": "sender",
+          "type": "address",
+          "indexed": true,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "_orderId",
+          "type": "uint96",
+          "indexed": true,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint96",
+          "_isParamType": true
+        },
+        {
+          "name": "orderStatus",
+          "type": "uint8",
+          "indexed": true,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint8",
+          "_isParamType": true
+        },
+        {
+          "name": "_amount",
+          "type": "uint256",
+          "indexed": false,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        }
+      ],
+      "type": "event",
+      "_isFragment": true
+    },
+    {
+      "type": "function",
+      "name": "addCollateralTokens",
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_tokens",
+          "type": "address[]",
+          "indexed": null,
+          "components": null,
+          "arrayLength": -1,
+          "arrayChildren": {
+            "name": null,
+            "type": "address",
+            "indexed": null,
+            "components": null,
+            "arrayLength": null,
+            "arrayChildren": null,
+            "baseType": "address",
+            "_isParamType": true
+          },
+          "baseType": "array",
+          "_isParamType": true
+        },
+        {
+          "name": "_priceFeeds",
+          "type": "address[]",
+          "indexed": null,
+          "components": null,
+          "arrayLength": -1,
+          "arrayChildren": {
+            "name": null,
+            "type": "address",
+            "indexed": null,
+            "components": null,
+            "arrayLength": null,
+            "arrayChildren": null,
+            "baseType": "address",
+            "_isParamType": true
+          },
+          "baseType": "array",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "gas": null,
+      "_isFragment": true
+    },
+    {
+      "type": "function",
+      "name": "addLoanableToken",
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_token",
+          "type": "address",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "_priceFeed",
+          "type": "address",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "gas": null,
+      "_isFragment": true
+    },
+    {
+      "type": "function",
+      "name": "closeListingAd",
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_listingId",
+          "type": "uint96",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint96",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "gas": null,
+      "_isFragment": true
+    },
+    {
+      "type": "function",
+      "name": "createLendingRequest",
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_amount",
+          "type": "uint128",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint128",
+          "_isParamType": true
+        },
+        {
+          "name": "_interest",
+          "type": "uint16",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint16",
+          "_isParamType": true
+        },
+        {
+          "name": "_returnDate",
+          "type": "uint256",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        },
+        {
+          "name": "_loanCurrency",
+          "type": "address",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "gas": null,
+      "_isFragment": true
+    },
+    {
+      "type": "function",
+      "name": "createLoanListing",
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_amount",
+          "type": "uint256",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        },
+        {
+          "name": "_min_amount",
+          "type": "uint256",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        },
+        {
+          "name": "_max_amount",
+          "type": "uint256",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        },
+        {
+          "name": "_returnDate",
+          "type": "uint256",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        },
+        {
+          "name": "_interest",
+          "type": "uint16",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint16",
+          "_isParamType": true
+        },
+        {
+          "name": "_loanCurrency",
+          "type": "address",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [],
+      "payable": true,
+      "stateMutability": "payable",
+      "gas": null,
+      "_isFragment": true
+    },
+    {
+      "type": "function",
+      "name": "depositCollateral",
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_tokenCollateralAddress",
+          "type": "address",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "_amountOfCollateral",
+          "type": "uint256",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [],
+      "payable": true,
+      "stateMutability": "payable",
+      "gas": null,
+      "_isFragment": true
+    },
+    {
+      "type": "function",
+      "name": "getAccountCollateralValue",
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_user",
+          "type": "address",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "_totalCollateralValueInUsd",
+          "type": "uint256",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "gas": null,
+      "_isFragment": true
+    },
+    {
+      "type": "function",
+      "name": "getAllCollateralToken",
+      "constant": true,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": null,
+          "type": "address[]",
+          "indexed": null,
+          "components": null,
+          "arrayLength": -1,
+          "arrayChildren": {
+            "name": null,
+            "type": "address",
+            "indexed": null,
+            "components": null,
+            "arrayLength": null,
+            "arrayChildren": null,
+            "baseType": "address",
+            "_isParamType": true
+          },
+          "baseType": "array",
+          "_isParamType": true
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "gas": null,
+      "_isFragment": true
+    },
+    {
+      "type": "function",
+      "name": "getAllRequest",
+      "constant": true,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": null,
+          "type": "tuple[]",
+          "indexed": null,
+          "components": [
+            {
+              "name": "requestId",
+              "type": "uint96",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint96",
+              "_isParamType": true
+            },
+            {
+              "name": "author",
+              "type": "address",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "address",
+              "_isParamType": true
+            },
+            {
+              "name": "amount",
+              "type": "uint256",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint256",
+              "_isParamType": true
+            },
+            {
+              "name": "interest",
+              "type": "uint16",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint16",
+              "_isParamType": true
+            },
+            {
+              "name": "totalRepayment",
+              "type": "uint256",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint256",
+              "_isParamType": true
+            },
+            {
+              "name": "returnDate",
+              "type": "uint256",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint256",
+              "_isParamType": true
+            },
+            {
+              "name": "lender",
+              "type": "address",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "address",
+              "_isParamType": true
+            },
+            {
+              "name": "loanRequestAddr",
+              "type": "address",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "address",
+              "_isParamType": true
+            },
+            {
+              "name": "status",
+              "type": "uint8",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint8",
+              "_isParamType": true
+            }
+          ],
+          "arrayLength": -1,
+          "arrayChildren": {
+            "name": null,
+            "type": "tuple",
+            "indexed": null,
+            "components": [
+              {
+                "name": "requestId",
+                "type": "uint96",
+                "indexed": null,
+                "components": null,
+                "arrayLength": null,
+                "arrayChildren": null,
+                "baseType": "uint96",
+                "_isParamType": true
+              },
+              {
+                "name": "author",
+                "type": "address",
+                "indexed": null,
+                "components": null,
+                "arrayLength": null,
+                "arrayChildren": null,
+                "baseType": "address",
+                "_isParamType": true
+              },
+              {
+                "name": "amount",
+                "type": "uint256",
+                "indexed": null,
+                "components": null,
+                "arrayLength": null,
+                "arrayChildren": null,
+                "baseType": "uint256",
+                "_isParamType": true
+              },
+              {
+                "name": "interest",
+                "type": "uint16",
+                "indexed": null,
+                "components": null,
+                "arrayLength": null,
+                "arrayChildren": null,
+                "baseType": "uint16",
+                "_isParamType": true
+              },
+              {
+                "name": "totalRepayment",
+                "type": "uint256",
+                "indexed": null,
+                "components": null,
+                "arrayLength": null,
+                "arrayChildren": null,
+                "baseType": "uint256",
+                "_isParamType": true
+              },
+              {
+                "name": "returnDate",
+                "type": "uint256",
+                "indexed": null,
+                "components": null,
+                "arrayLength": null,
+                "arrayChildren": null,
+                "baseType": "uint256",
+                "_isParamType": true
+              },
+              {
+                "name": "lender",
+                "type": "address",
+                "indexed": null,
+                "components": null,
+                "arrayLength": null,
+                "arrayChildren": null,
+                "baseType": "address",
+                "_isParamType": true
+              },
+              {
+                "name": "loanRequestAddr",
+                "type": "address",
+                "indexed": null,
+                "components": null,
+                "arrayLength": null,
+                "arrayChildren": null,
+                "baseType": "address",
+                "_isParamType": true
+              },
+              {
+                "name": "status",
+                "type": "uint8",
+                "indexed": null,
+                "components": null,
+                "arrayLength": null,
+                "arrayChildren": null,
+                "baseType": "uint8",
+                "_isParamType": true
+              }
+            ],
+            "arrayLength": null,
+            "arrayChildren": null,
+            "baseType": "tuple",
+            "_isParamType": true
+          },
+          "baseType": "array",
+          "_isParamType": true
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "gas": null,
+      "_isFragment": true
+    },
+    {
+      "type": "function",
+      "name": "getHealthFactor",
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_user",
+          "type": "address",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": null,
+          "type": "uint256",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "gas": null,
+      "_isFragment": true
+    },
+    {
+      "type": "function",
+      "name": "getLoanListing",
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_listingId",
+          "type": "uint96",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint96",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": null,
+          "type": "tuple",
+          "indexed": null,
+          "components": [
+            {
+              "name": "listingId",
+              "type": "uint96",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint96",
+              "_isParamType": true
+            },
+            {
+              "name": "author",
+              "type": "address",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "address",
+              "_isParamType": true
+            },
+            {
+              "name": "tokenAddress",
+              "type": "address",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "address",
+              "_isParamType": true
+            },
+            {
+              "name": "amount",
+              "type": "uint256",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint256",
+              "_isParamType": true
+            },
+            {
+              "name": "min_amount",
+              "type": "uint256",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint256",
+              "_isParamType": true
+            },
+            {
+              "name": "max_amount",
+              "type": "uint256",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint256",
+              "_isParamType": true
+            },
+            {
+              "name": "returnDate",
+              "type": "uint256",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint256",
+              "_isParamType": true
+            },
+            {
+              "name": "interest",
+              "type": "uint16",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint16",
+              "_isParamType": true
+            },
+            {
+              "name": "listingStatus",
+              "type": "uint8",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint8",
+              "_isParamType": true
+            }
+          ],
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "tuple",
+          "_isParamType": true
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "gas": null,
+      "_isFragment": true
+    },
+    {
+      "type": "function",
+      "name": "getLoanableAssets",
+      "constant": true,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "_assets",
+          "type": "address[]",
+          "indexed": null,
+          "components": null,
+          "arrayLength": -1,
+          "arrayChildren": {
+            "name": null,
+            "type": "address",
+            "indexed": null,
+            "components": null,
+            "arrayLength": null,
+            "arrayChildren": null,
+            "baseType": "address",
+            "_isParamType": true
+          },
+          "baseType": "array",
+          "_isParamType": true
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "gas": null,
+      "_isFragment": true
+    },
+    {
+      "type": "function",
+      "name": "getRequest",
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_requestId",
+          "type": "uint96",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint96",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": null,
+          "type": "tuple",
+          "indexed": null,
+          "components": [
+            {
+              "name": "requestId",
+              "type": "uint96",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint96",
+              "_isParamType": true
+            },
+            {
+              "name": "author",
+              "type": "address",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "address",
+              "_isParamType": true
+            },
+            {
+              "name": "amount",
+              "type": "uint256",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint256",
+              "_isParamType": true
+            },
+            {
+              "name": "interest",
+              "type": "uint16",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint16",
+              "_isParamType": true
+            },
+            {
+              "name": "totalRepayment",
+              "type": "uint256",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint256",
+              "_isParamType": true
+            },
+            {
+              "name": "returnDate",
+              "type": "uint256",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint256",
+              "_isParamType": true
+            },
+            {
+              "name": "lender",
+              "type": "address",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "address",
+              "_isParamType": true
+            },
+            {
+              "name": "loanRequestAddr",
+              "type": "address",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "address",
+              "_isParamType": true
+            },
+            {
+              "name": "status",
+              "type": "uint8",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint8",
+              "_isParamType": true
+            }
+          ],
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "tuple",
+          "_isParamType": true
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "gas": null,
+      "_isFragment": true
+    },
+    {
+      "type": "function",
+      "name": "getUsdValue",
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_token",
+          "type": "address",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "_amount",
+          "type": "uint256",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": null,
+          "type": "uint256",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "gas": null,
+      "_isFragment": true
+    },
+    {
+      "type": "function",
+      "name": "getUserRequest",
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_user",
+          "type": "address",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "_requestId",
+          "type": "uint96",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint96",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": null,
+          "type": "tuple",
+          "indexed": null,
+          "components": [
+            {
+              "name": "requestId",
+              "type": "uint96",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint96",
+              "_isParamType": true
+            },
+            {
+              "name": "author",
+              "type": "address",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "address",
+              "_isParamType": true
+            },
+            {
+              "name": "amount",
+              "type": "uint256",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint256",
+              "_isParamType": true
+            },
+            {
+              "name": "interest",
+              "type": "uint16",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint16",
+              "_isParamType": true
+            },
+            {
+              "name": "totalRepayment",
+              "type": "uint256",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint256",
+              "_isParamType": true
+            },
+            {
+              "name": "returnDate",
+              "type": "uint256",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint256",
+              "_isParamType": true
+            },
+            {
+              "name": "lender",
+              "type": "address",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "address",
+              "_isParamType": true
+            },
+            {
+              "name": "loanRequestAddr",
+              "type": "address",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "address",
+              "_isParamType": true
+            },
+            {
+              "name": "status",
+              "type": "uint8",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint8",
+              "_isParamType": true
+            }
+          ],
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "tuple",
+          "_isParamType": true
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "gas": null,
+      "_isFragment": true
+    },
+    {
+      "type": "function",
+      "name": "get_gitCoinPoint",
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_user",
+          "type": "address",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "_score",
+          "type": "uint256",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "gas": null,
+      "_isFragment": true
+    },
+    {
+      "type": "function",
+      "name": "gets_addressToCollateralDeposited",
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_sender",
+          "type": "address",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "_tokenAddr",
+          "type": "address",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": null,
+          "type": "uint256",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "gas": null,
+      "_isFragment": true
+    },
+    {
+      "type": "function",
+      "name": "removeCollateralTokens",
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_tokens",
+          "type": "address[]",
+          "indexed": null,
+          "components": null,
+          "arrayLength": -1,
+          "arrayChildren": {
+            "name": null,
+            "type": "address",
+            "indexed": null,
+            "components": null,
+            "arrayLength": null,
+            "arrayChildren": null,
+            "baseType": "address",
+            "_isParamType": true
+          },
+          "baseType": "array",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "gas": null,
+      "_isFragment": true
+    },
+    {
+      "type": "function",
+      "name": "repayLoan",
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_requestId",
+          "type": "uint96",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint96",
+          "_isParamType": true
+        },
+        {
+          "name": "_amount",
+          "type": "uint256",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [],
+      "payable": true,
+      "stateMutability": "payable",
+      "gas": null,
+      "_isFragment": true
+    },
+    {
+      "type": "function",
+      "name": "requestLoanFromListing",
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_listingId",
+          "type": "uint96",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint96",
+          "_isParamType": true
+        },
+        {
+          "name": "_amount",
+          "type": "uint256",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "gas": null,
+      "_isFragment": true
+    },
+    {
+      "type": "function",
+      "name": "serviceRequest",
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_requestId",
+          "type": "uint96",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint96",
+          "_isParamType": true
+        },
+        {
+          "name": "_tokenAddress",
+          "type": "address",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [],
+      "payable": true,
+      "stateMutability": "payable",
+      "gas": null,
+      "_isFragment": true
+    },
+    {
+      "type": "function",
+      "name": "updateGPScore",
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_user",
+          "type": "address",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "_score",
+          "type": "uint256",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "gas": null,
+      "_isFragment": true
+    },
+    {
+      "type": "function",
+      "name": "withdrawCollateral",
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_tokenCollateralAddress",
+          "type": "address",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "_amount",
+          "type": "uint128",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint128",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "gas": null,
+      "_isFragment": true
+    }
+  ],
+  "_abiCoder": {
+    "coerceFunc": null
+  },
+  "functions": {
+    "addCollateralTokens(address[],address[])": {
+      "type": "function",
+      "name": "addCollateralTokens",
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_tokens",
+          "type": "address[]",
+          "indexed": null,
+          "components": null,
+          "arrayLength": -1,
+          "arrayChildren": {
+            "name": null,
+            "type": "address",
+            "indexed": null,
+            "components": null,
+            "arrayLength": null,
+            "arrayChildren": null,
+            "baseType": "address",
+            "_isParamType": true
+          },
+          "baseType": "array",
+          "_isParamType": true
+        },
+        {
+          "name": "_priceFeeds",
+          "type": "address[]",
+          "indexed": null,
+          "components": null,
+          "arrayLength": -1,
+          "arrayChildren": {
+            "name": null,
+            "type": "address",
+            "indexed": null,
+            "components": null,
+            "arrayLength": null,
+            "arrayChildren": null,
+            "baseType": "address",
+            "_isParamType": true
+          },
+          "baseType": "array",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "gas": null,
+      "_isFragment": true
+    },
+    "addLoanableToken(address,address)": {
+      "type": "function",
+      "name": "addLoanableToken",
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_token",
+          "type": "address",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "_priceFeed",
+          "type": "address",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "gas": null,
+      "_isFragment": true
+    },
+    "closeListingAd(uint96)": {
+      "type": "function",
+      "name": "closeListingAd",
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_listingId",
+          "type": "uint96",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint96",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "gas": null,
+      "_isFragment": true
+    },
+    "createLendingRequest(uint128,uint16,uint256,address)": {
+      "type": "function",
+      "name": "createLendingRequest",
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_amount",
+          "type": "uint128",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint128",
+          "_isParamType": true
+        },
+        {
+          "name": "_interest",
+          "type": "uint16",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint16",
+          "_isParamType": true
+        },
+        {
+          "name": "_returnDate",
+          "type": "uint256",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        },
+        {
+          "name": "_loanCurrency",
+          "type": "address",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "gas": null,
+      "_isFragment": true
+    },
+    "createLoanListing(uint256,uint256,uint256,uint256,uint16,address)": {
+      "type": "function",
+      "name": "createLoanListing",
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_amount",
+          "type": "uint256",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        },
+        {
+          "name": "_min_amount",
+          "type": "uint256",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        },
+        {
+          "name": "_max_amount",
+          "type": "uint256",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        },
+        {
+          "name": "_returnDate",
+          "type": "uint256",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        },
+        {
+          "name": "_interest",
+          "type": "uint16",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint16",
+          "_isParamType": true
+        },
+        {
+          "name": "_loanCurrency",
+          "type": "address",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [],
+      "payable": true,
+      "stateMutability": "payable",
+      "gas": null,
+      "_isFragment": true
+    },
+    "depositCollateral(address,uint256)": {
+      "type": "function",
+      "name": "depositCollateral",
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_tokenCollateralAddress",
+          "type": "address",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "_amountOfCollateral",
+          "type": "uint256",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [],
+      "payable": true,
+      "stateMutability": "payable",
+      "gas": null,
+      "_isFragment": true
+    },
+    "getAccountCollateralValue(address)": {
+      "type": "function",
+      "name": "getAccountCollateralValue",
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_user",
+          "type": "address",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "_totalCollateralValueInUsd",
+          "type": "uint256",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "gas": null,
+      "_isFragment": true
+    },
+    "getAllCollateralToken()": {
+      "type": "function",
+      "name": "getAllCollateralToken",
+      "constant": true,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": null,
+          "type": "address[]",
+          "indexed": null,
+          "components": null,
+          "arrayLength": -1,
+          "arrayChildren": {
+            "name": null,
+            "type": "address",
+            "indexed": null,
+            "components": null,
+            "arrayLength": null,
+            "arrayChildren": null,
+            "baseType": "address",
+            "_isParamType": true
+          },
+          "baseType": "array",
+          "_isParamType": true
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "gas": null,
+      "_isFragment": true
+    },
+    "getAllRequest()": {
+      "type": "function",
+      "name": "getAllRequest",
+      "constant": true,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": null,
+          "type": "tuple[]",
+          "indexed": null,
+          "components": [
+            {
+              "name": "requestId",
+              "type": "uint96",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint96",
+              "_isParamType": true
+            },
+            {
+              "name": "author",
+              "type": "address",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "address",
+              "_isParamType": true
+            },
+            {
+              "name": "amount",
+              "type": "uint256",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint256",
+              "_isParamType": true
+            },
+            {
+              "name": "interest",
+              "type": "uint16",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint16",
+              "_isParamType": true
+            },
+            {
+              "name": "totalRepayment",
+              "type": "uint256",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint256",
+              "_isParamType": true
+            },
+            {
+              "name": "returnDate",
+              "type": "uint256",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint256",
+              "_isParamType": true
+            },
+            {
+              "name": "lender",
+              "type": "address",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "address",
+              "_isParamType": true
+            },
+            {
+              "name": "loanRequestAddr",
+              "type": "address",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "address",
+              "_isParamType": true
+            },
+            {
+              "name": "status",
+              "type": "uint8",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint8",
+              "_isParamType": true
+            }
+          ],
+          "arrayLength": -1,
+          "arrayChildren": {
+            "name": null,
+            "type": "tuple",
+            "indexed": null,
+            "components": [
+              {
+                "name": "requestId",
+                "type": "uint96",
+                "indexed": null,
+                "components": null,
+                "arrayLength": null,
+                "arrayChildren": null,
+                "baseType": "uint96",
+                "_isParamType": true
+              },
+              {
+                "name": "author",
+                "type": "address",
+                "indexed": null,
+                "components": null,
+                "arrayLength": null,
+                "arrayChildren": null,
+                "baseType": "address",
+                "_isParamType": true
+              },
+              {
+                "name": "amount",
+                "type": "uint256",
+                "indexed": null,
+                "components": null,
+                "arrayLength": null,
+                "arrayChildren": null,
+                "baseType": "uint256",
+                "_isParamType": true
+              },
+              {
+                "name": "interest",
+                "type": "uint16",
+                "indexed": null,
+                "components": null,
+                "arrayLength": null,
+                "arrayChildren": null,
+                "baseType": "uint16",
+                "_isParamType": true
+              },
+              {
+                "name": "totalRepayment",
+                "type": "uint256",
+                "indexed": null,
+                "components": null,
+                "arrayLength": null,
+                "arrayChildren": null,
+                "baseType": "uint256",
+                "_isParamType": true
+              },
+              {
+                "name": "returnDate",
+                "type": "uint256",
+                "indexed": null,
+                "components": null,
+                "arrayLength": null,
+                "arrayChildren": null,
+                "baseType": "uint256",
+                "_isParamType": true
+              },
+              {
+                "name": "lender",
+                "type": "address",
+                "indexed": null,
+                "components": null,
+                "arrayLength": null,
+                "arrayChildren": null,
+                "baseType": "address",
+                "_isParamType": true
+              },
+              {
+                "name": "loanRequestAddr",
+                "type": "address",
+                "indexed": null,
+                "components": null,
+                "arrayLength": null,
+                "arrayChildren": null,
+                "baseType": "address",
+                "_isParamType": true
+              },
+              {
+                "name": "status",
+                "type": "uint8",
+                "indexed": null,
+                "components": null,
+                "arrayLength": null,
+                "arrayChildren": null,
+                "baseType": "uint8",
+                "_isParamType": true
+              }
+            ],
+            "arrayLength": null,
+            "arrayChildren": null,
+            "baseType": "tuple",
+            "_isParamType": true
+          },
+          "baseType": "array",
+          "_isParamType": true
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "gas": null,
+      "_isFragment": true
+    },
+    "getHealthFactor(address)": {
+      "type": "function",
+      "name": "getHealthFactor",
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_user",
+          "type": "address",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": null,
+          "type": "uint256",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "gas": null,
+      "_isFragment": true
+    },
+    "getLoanListing(uint96)": {
+      "type": "function",
+      "name": "getLoanListing",
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_listingId",
+          "type": "uint96",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint96",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": null,
+          "type": "tuple",
+          "indexed": null,
+          "components": [
+            {
+              "name": "listingId",
+              "type": "uint96",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint96",
+              "_isParamType": true
+            },
+            {
+              "name": "author",
+              "type": "address",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "address",
+              "_isParamType": true
+            },
+            {
+              "name": "tokenAddress",
+              "type": "address",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "address",
+              "_isParamType": true
+            },
+            {
+              "name": "amount",
+              "type": "uint256",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint256",
+              "_isParamType": true
+            },
+            {
+              "name": "min_amount",
+              "type": "uint256",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint256",
+              "_isParamType": true
+            },
+            {
+              "name": "max_amount",
+              "type": "uint256",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint256",
+              "_isParamType": true
+            },
+            {
+              "name": "returnDate",
+              "type": "uint256",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint256",
+              "_isParamType": true
+            },
+            {
+              "name": "interest",
+              "type": "uint16",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint16",
+              "_isParamType": true
+            },
+            {
+              "name": "listingStatus",
+              "type": "uint8",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint8",
+              "_isParamType": true
+            }
+          ],
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "tuple",
+          "_isParamType": true
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "gas": null,
+      "_isFragment": true
+    },
+    "getLoanableAssets()": {
+      "type": "function",
+      "name": "getLoanableAssets",
+      "constant": true,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "_assets",
+          "type": "address[]",
+          "indexed": null,
+          "components": null,
+          "arrayLength": -1,
+          "arrayChildren": {
+            "name": null,
+            "type": "address",
+            "indexed": null,
+            "components": null,
+            "arrayLength": null,
+            "arrayChildren": null,
+            "baseType": "address",
+            "_isParamType": true
+          },
+          "baseType": "array",
+          "_isParamType": true
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "gas": null,
+      "_isFragment": true
+    },
+    "getRequest(uint96)": {
+      "type": "function",
+      "name": "getRequest",
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_requestId",
+          "type": "uint96",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint96",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": null,
+          "type": "tuple",
+          "indexed": null,
+          "components": [
+            {
+              "name": "requestId",
+              "type": "uint96",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint96",
+              "_isParamType": true
+            },
+            {
+              "name": "author",
+              "type": "address",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "address",
+              "_isParamType": true
+            },
+            {
+              "name": "amount",
+              "type": "uint256",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint256",
+              "_isParamType": true
+            },
+            {
+              "name": "interest",
+              "type": "uint16",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint16",
+              "_isParamType": true
+            },
+            {
+              "name": "totalRepayment",
+              "type": "uint256",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint256",
+              "_isParamType": true
+            },
+            {
+              "name": "returnDate",
+              "type": "uint256",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint256",
+              "_isParamType": true
+            },
+            {
+              "name": "lender",
+              "type": "address",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "address",
+              "_isParamType": true
+            },
+            {
+              "name": "loanRequestAddr",
+              "type": "address",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "address",
+              "_isParamType": true
+            },
+            {
+              "name": "status",
+              "type": "uint8",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint8",
+              "_isParamType": true
+            }
+          ],
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "tuple",
+          "_isParamType": true
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "gas": null,
+      "_isFragment": true
+    },
+    "getUsdValue(address,uint256)": {
+      "type": "function",
+      "name": "getUsdValue",
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_token",
+          "type": "address",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "_amount",
+          "type": "uint256",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": null,
+          "type": "uint256",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "gas": null,
+      "_isFragment": true
+    },
+    "getUserRequest(address,uint96)": {
+      "type": "function",
+      "name": "getUserRequest",
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_user",
+          "type": "address",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "_requestId",
+          "type": "uint96",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint96",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": null,
+          "type": "tuple",
+          "indexed": null,
+          "components": [
+            {
+              "name": "requestId",
+              "type": "uint96",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint96",
+              "_isParamType": true
+            },
+            {
+              "name": "author",
+              "type": "address",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "address",
+              "_isParamType": true
+            },
+            {
+              "name": "amount",
+              "type": "uint256",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint256",
+              "_isParamType": true
+            },
+            {
+              "name": "interest",
+              "type": "uint16",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint16",
+              "_isParamType": true
+            },
+            {
+              "name": "totalRepayment",
+              "type": "uint256",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint256",
+              "_isParamType": true
+            },
+            {
+              "name": "returnDate",
+              "type": "uint256",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint256",
+              "_isParamType": true
+            },
+            {
+              "name": "lender",
+              "type": "address",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "address",
+              "_isParamType": true
+            },
+            {
+              "name": "loanRequestAddr",
+              "type": "address",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "address",
+              "_isParamType": true
+            },
+            {
+              "name": "status",
+              "type": "uint8",
+              "indexed": null,
+              "components": null,
+              "arrayLength": null,
+              "arrayChildren": null,
+              "baseType": "uint8",
+              "_isParamType": true
+            }
+          ],
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "tuple",
+          "_isParamType": true
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "gas": null,
+      "_isFragment": true
+    },
+    "get_gitCoinPoint(address)": {
+      "type": "function",
+      "name": "get_gitCoinPoint",
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_user",
+          "type": "address",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "_score",
+          "type": "uint256",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "gas": null,
+      "_isFragment": true
+    },
+    "gets_addressToCollateralDeposited(address,address)": {
+      "type": "function",
+      "name": "gets_addressToCollateralDeposited",
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_sender",
+          "type": "address",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "_tokenAddr",
+          "type": "address",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": null,
+          "type": "uint256",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "gas": null,
+      "_isFragment": true
+    },
+    "removeCollateralTokens(address[])": {
+      "type": "function",
+      "name": "removeCollateralTokens",
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_tokens",
+          "type": "address[]",
+          "indexed": null,
+          "components": null,
+          "arrayLength": -1,
+          "arrayChildren": {
+            "name": null,
+            "type": "address",
+            "indexed": null,
+            "components": null,
+            "arrayLength": null,
+            "arrayChildren": null,
+            "baseType": "address",
+            "_isParamType": true
+          },
+          "baseType": "array",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "gas": null,
+      "_isFragment": true
+    },
+    "repayLoan(uint96,uint256)": {
+      "type": "function",
+      "name": "repayLoan",
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_requestId",
+          "type": "uint96",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint96",
+          "_isParamType": true
+        },
+        {
+          "name": "_amount",
+          "type": "uint256",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [],
+      "payable": true,
+      "stateMutability": "payable",
+      "gas": null,
+      "_isFragment": true
+    },
+    "requestLoanFromListing(uint96,uint256)": {
+      "type": "function",
+      "name": "requestLoanFromListing",
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_listingId",
+          "type": "uint96",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint96",
+          "_isParamType": true
+        },
+        {
+          "name": "_amount",
+          "type": "uint256",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "gas": null,
+      "_isFragment": true
+    },
+    "serviceRequest(uint96,address)": {
+      "type": "function",
+      "name": "serviceRequest",
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_requestId",
+          "type": "uint96",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint96",
+          "_isParamType": true
+        },
+        {
+          "name": "_tokenAddress",
+          "type": "address",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [],
+      "payable": true,
+      "stateMutability": "payable",
+      "gas": null,
+      "_isFragment": true
+    },
+    "updateGPScore(address,uint256)": {
+      "type": "function",
+      "name": "updateGPScore",
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_user",
+          "type": "address",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "_score",
+          "type": "uint256",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "gas": null,
+      "_isFragment": true
+    },
+    "withdrawCollateral(address,uint128)": {
+      "type": "function",
+      "name": "withdrawCollateral",
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_tokenCollateralAddress",
+          "type": "address",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "_amount",
+          "type": "uint128",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint128",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "gas": null,
+      "_isFragment": true
+    }
+  },
+  "errors": {
+    "NotDiamondOwner()": {
+      "type": "error",
+      "name": "NotDiamondOwner",
+      "inputs": [],
+      "_isFragment": true
+    },
+    "Protocol__BreaksHealthFactor()": {
+      "type": "error",
+      "name": "Protocol__BreaksHealthFactor",
+      "inputs": [],
+      "_isFragment": true
+    },
+    "Protocol__DateMustBeInFuture()": {
+      "type": "error",
+      "name": "Protocol__DateMustBeInFuture",
+      "inputs": [],
+      "_isFragment": true
+    },
+    "Protocol__IdNotExist()": {
+      "type": "error",
+      "name": "Protocol__IdNotExist",
+      "inputs": [],
+      "_isFragment": true
+    },
+    "Protocol__InsufficientAllowance()": {
+      "type": "error",
+      "name": "Protocol__InsufficientAllowance",
+      "inputs": [],
+      "_isFragment": true
+    },
+    "Protocol__InsufficientAmount()": {
+      "type": "error",
+      "name": "Protocol__InsufficientAmount",
+      "inputs": [],
+      "_isFragment": true
+    },
+    "Protocol__InsufficientBalance()": {
+      "type": "error",
+      "name": "Protocol__InsufficientBalance",
+      "inputs": [],
+      "_isFragment": true
+    },
+    "Protocol__InsufficientCollateral()": {
+      "type": "error",
+      "name": "Protocol__InsufficientCollateral",
+      "inputs": [],
+      "_isFragment": true
+    },
+    "Protocol__InsufficientCollateralDeposited()": {
+      "type": "error",
+      "name": "Protocol__InsufficientCollateralDeposited",
+      "inputs": [],
+      "_isFragment": true
+    },
+    "Protocol__InvalidAmount()": {
+      "type": "error",
+      "name": "Protocol__InvalidAmount",
+      "inputs": [],
+      "_isFragment": true
+    },
+    "Protocol__InvalidToken()": {
+      "type": "error",
+      "name": "Protocol__InvalidToken",
+      "inputs": [],
+      "_isFragment": true
+    },
+    "Protocol__ListingNotOpen()": {
+      "type": "error",
+      "name": "Protocol__ListingNotOpen",
+      "inputs": [],
+      "_isFragment": true
+    },
+    "Protocol__MustBeMoreThanZero()": {
+      "type": "error",
+      "name": "Protocol__MustBeMoreThanZero",
+      "inputs": [],
+      "_isFragment": true
+    },
+    "Protocol__NotOwner()": {
+      "type": "error",
+      "name": "Protocol__NotOwner",
+      "inputs": [],
+      "_isFragment": true
+    },
+    "Protocol__OrderNotOpen()": {
+      "type": "error",
+      "name": "Protocol__OrderNotOpen",
+      "inputs": [],
+      "_isFragment": true
+    },
+    "Protocol__OwnerCreatedListing()": {
+      "type": "error",
+      "name": "Protocol__OwnerCreatedListing",
+      "inputs": [],
+      "_isFragment": true
+    },
+    "Protocol__OwnerCreatedOrder()": {
+      "type": "error",
+      "name": "Protocol__OwnerCreatedOrder",
+      "inputs": [],
+      "_isFragment": true
+    },
+    "Protocol__RequestNotOpen()": {
+      "type": "error",
+      "name": "Protocol__RequestNotOpen",
+      "inputs": [],
+      "_isFragment": true
+    },
+    "Protocol__RequestNotServiced()": {
+      "type": "error",
+      "name": "Protocol__RequestNotServiced",
+      "inputs": [],
+      "_isFragment": true
+    },
+    "Protocol__TokenNotAllowed()": {
+      "type": "error",
+      "name": "Protocol__TokenNotAllowed",
+      "inputs": [],
+      "_isFragment": true
+    },
+    "Protocol__TokenNotLoanable()": {
+      "type": "error",
+      "name": "Protocol__TokenNotLoanable",
+      "inputs": [],
+      "_isFragment": true
+    },
+    "Protocol__TransferFailed()": {
+      "type": "error",
+      "name": "Protocol__TransferFailed",
+      "inputs": [],
+      "_isFragment": true
+    },
+    "Protocol__tokensAndPriceFeedsArrayMustBeSameLength()": {
+      "type": "error",
+      "name": "Protocol__tokensAndPriceFeedsArrayMustBeSameLength",
+      "inputs": [],
+      "_isFragment": true
+    }
+  },
+  "events": {
+    "CollateralDeposited(address,address,uint256)": {
+      "name": "CollateralDeposited",
+      "anonymous": false,
+      "inputs": [
+        {
+          "name": "_sender",
+          "type": "address",
+          "indexed": true,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "_token",
+          "type": "address",
+          "indexed": true,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "_value",
+          "type": "uint256",
+          "indexed": false,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        }
+      ],
+      "type": "event",
+      "_isFragment": true
+    },
+    "CollateralWithdrawn(address,address,uint256)": {
+      "name": "CollateralWithdrawn",
+      "anonymous": false,
+      "inputs": [
+        {
+          "name": "sender",
+          "type": "address",
+          "indexed": true,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "_tokenCollateralAddress",
+          "type": "address",
+          "indexed": true,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "_amount",
+          "type": "uint256",
+          "indexed": false,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        }
+      ],
+      "type": "event",
+      "_isFragment": true
+    },
+    "LoanListingCreated(uint96,address,address,uint256)": {
+      "name": "LoanListingCreated",
+      "anonymous": false,
+      "inputs": [
+        {
+          "name": "listingId",
+          "type": "uint96",
+          "indexed": true,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint96",
+          "_isParamType": true
+        },
+        {
+          "name": "sender",
+          "type": "address",
+          "indexed": true,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "tokenAddress",
+          "type": "address",
+          "indexed": true,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "indexed": false,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        }
+      ],
+      "type": "event",
+      "_isFragment": true
+    },
+    "LoanRepayment(address,uint96,uint256)": {
+      "name": "LoanRepayment",
+      "anonymous": false,
+      "inputs": [
+        {
+          "name": "sender",
+          "type": "address",
+          "indexed": true,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "id",
+          "type": "uint96",
+          "indexed": false,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint96",
+          "_isParamType": true
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "indexed": false,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        }
+      ],
+      "type": "event",
+      "_isFragment": true
+    },
+    "RequestCreated(address,uint96,uint256,uint16)": {
+      "name": "RequestCreated",
+      "anonymous": false,
+      "inputs": [
+        {
+          "name": "_borrower",
+          "type": "address",
+          "indexed": true,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "requestId",
+          "type": "uint96",
+          "indexed": true,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint96",
+          "_isParamType": true
+        },
+        {
+          "name": "_amount",
+          "type": "uint256",
+          "indexed": false,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        },
+        {
+          "name": "_interest",
+          "type": "uint16",
+          "indexed": false,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint16",
+          "_isParamType": true
+        }
+      ],
+      "type": "event",
+      "_isFragment": true
+    },
+    "RequestServiced(uint96,address,address,uint256)": {
+      "name": "RequestServiced",
+      "anonymous": false,
+      "inputs": [
+        {
+          "name": "_requestId",
+          "type": "uint96",
+          "indexed": true,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint96",
+          "_isParamType": true
+        },
+        {
+          "name": "_lender",
+          "type": "address",
+          "indexed": true,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "_borrower",
+          "type": "address",
+          "indexed": true,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "_amount",
+          "type": "uint256",
+          "indexed": false,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        }
+      ],
+      "type": "event",
+      "_isFragment": true
+    },
+    "UpdateLoanableToken(address,address,address)": {
+      "name": "UpdateLoanableToken",
+      "anonymous": false,
+      "inputs": [
+        {
+          "name": "_token",
+          "type": "address",
+          "indexed": true,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "_priceFeed",
+          "type": "address",
+          "indexed": false,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "sender",
+          "type": "address",
+          "indexed": true,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        }
+      ],
+      "type": "event",
+      "_isFragment": true
+    },
+    "UpdatedCollateralTokens(address,uint8)": {
+      "name": "UpdatedCollateralTokens",
+      "anonymous": false,
+      "inputs": [
+        {
+          "name": "sender",
+          "type": "address",
+          "indexed": true,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "newTokensCount",
+          "type": "uint8",
+          "indexed": false,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint8",
+          "_isParamType": true
+        }
+      ],
+      "type": "event",
+      "_isFragment": true
+    },
+    "withdrawnAdsToken(address,uint96,uint8,uint256)": {
+      "name": "withdrawnAdsToken",
+      "anonymous": false,
+      "inputs": [
+        {
+          "name": "sender",
+          "type": "address",
+          "indexed": true,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "_orderId",
+          "type": "uint96",
+          "indexed": true,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint96",
+          "_isParamType": true
+        },
+        {
+          "name": "orderStatus",
+          "type": "uint8",
+          "indexed": true,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint8",
+          "_isParamType": true
+        },
+        {
+          "name": "_amount",
+          "type": "uint256",
+          "indexed": false,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "uint256",
+          "_isParamType": true
+        }
+      ],
+      "type": "event",
+      "_isFragment": true
+    }
+  },
+  "structs": {},
+  "deploy": {
+    "name": null,
+    "type": "constructor",
+    "inputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "gas": null,
+    "_isFragment": true
+  },
+  "_isInterface": true
+}

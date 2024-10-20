@@ -1,0 +1,180 @@
+{
+  "fragments": [
+    {
+      "type": "error",
+      "name": "NotDiamondOwner",
+      "inputs": [],
+      "_isFragment": true
+    },
+    {
+      "name": "OwnershipTransferred",
+      "anonymous": false,
+      "inputs": [
+        {
+          "name": "previousOwner",
+          "type": "address",
+          "indexed": true,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "newOwner",
+          "type": "address",
+          "indexed": true,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        }
+      ],
+      "type": "event",
+      "_isFragment": true
+    },
+    {
+      "type": "function",
+      "name": "owner",
+      "constant": true,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "owner_",
+          "type": "address",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "gas": null,
+      "_isFragment": true
+    },
+    {
+      "type": "function",
+      "name": "transferOwnership",
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_newOwner",
+          "type": "address",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "gas": null,
+      "_isFragment": true
+    }
+  ],
+  "_abiCoder": {
+    "coerceFunc": null
+  },
+  "functions": {
+    "owner()": {
+      "type": "function",
+      "name": "owner",
+      "constant": true,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "owner_",
+          "type": "address",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "gas": null,
+      "_isFragment": true
+    },
+    "transferOwnership(address)": {
+      "type": "function",
+      "name": "transferOwnership",
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_newOwner",
+          "type": "address",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "gas": null,
+      "_isFragment": true
+    }
+  },
+  "errors": {
+    "NotDiamondOwner()": {
+      "type": "error",
+      "name": "NotDiamondOwner",
+      "inputs": [],
+      "_isFragment": true
+    }
+  },
+  "events": {
+    "OwnershipTransferred(address,address)": {
+      "name": "OwnershipTransferred",
+      "anonymous": false,
+      "inputs": [
+        {
+          "name": "previousOwner",
+          "type": "address",
+          "indexed": true,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        },
+        {
+          "name": "newOwner",
+          "type": "address",
+          "indexed": true,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "address",
+          "_isParamType": true
+        }
+      ],
+      "type": "event",
+      "_isFragment": true
+    }
+  },
+  "structs": {},
+  "deploy": {
+    "name": null,
+    "type": "constructor",
+    "inputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "gas": null,
+    "_isFragment": true
+  },
+  "_isInterface": true
+}
